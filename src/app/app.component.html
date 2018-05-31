@@ -1,20 +1,167 @@
-<!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
-  <h1>
-    Welcome to {{ title }}!
-  </h1>
-  <img width="300" alt="Angular Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
+<!-- <mat-form-field>
+  <input matInput [matDatepicker]="picker" placeholder="Choose a date">
+  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+  <mat-datepicker #picker></mat-datepicker>
+</mat-form-field> -->
+
+<!-- <div *ngFor="let array of sampleArray">
+  <mat-form-field>
+    <mat-select placeholder="Favorite food" (selectionChange)="select($event)">
+      <mat-option *ngFor="let food of foods" [value]="food.value">
+        {{ food.viewValue }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
 </div>
-<h2>Here are some links to help you start: </h2>
-<ul>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/tutorial">Tour of Heroes</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://github.com/angular/angular-cli/wiki">CLI Documentation</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://blog.angular.io/">Angular blog</a></h2>
-  </li>
-</ul>
+
+<button mat-button (click)="add()">Add</button>
+<button mat-button (click)="reset()">reset</button>
+
+<mat-tab-group>
+  <mat-tab *ngFor="let tabs of tabArray, let i = index" label="i">{{tabs.value}}</mat-tab>
+</mat-tab-group> -->
+<!-- {{sampleAbc}}
+<input type="checkbox" (change)="sample($event)">Akshat
+{{sampleDef}}
+
+<div *ngFor= "let object of sampleArray, let i = index">
+  <mat-form-field>
+    <mat-select placeholder="Favorite food" (selectionChange)="select($event, i)">
+      <mat-option *ngFor="let food of foods" [value]="food.value">
+        {{ food.viewValue }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>
+
+
+<button mat-button (click)="add()">Add</button>
+<button mat-button (click)="reset()">reset</button>
+{{sampleEfg}}
+
+<mat-tab-group>
+  <mat-tab *ngFor="let tabs of tabArray" label="Legs {{tabs.legno}}">{{tabs.value}}</mat-tab>
+</mat-tab-group>
+
+<form [formGroup]="sampleForm">
+  <mat-form-field>
+    <input class="form-control" formControlName="date" matInput [matDatepicker]="picker" placeholder="Choose a date">
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+  </mat-form-field>
+  <app-child1></app-child1>
+</form>
+
+<p>Form status: {{ sampleForm.status | json }}</p>
+
+
+<form class="example-form">
+  <mat-form-field class="example-full-width">
+    <input type="text" placeholder="Pick one" aria-label="Number" matInput [formControl]="myControl" [matAutocomplete]="auto">
+    <mat-autocomplete #auto="matAutocomplete">
+      <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+        {{ option }}
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
+</form> -->
+<!-- <div [innerHTML]="nodeOutput"></div> -->
+
+
+
+<!-- <mat-icon svgIcon="icon_label"></mat-icon> -->
+
+<!-- <input [formControl]="formControl" [disableControl]="true"> -->
+
+<form [formGroup]="notionalForm">
+  <mat-form-field>
+    <input class="form-control" formControlName="notional" matInput placeholder="Enter a number" disableControl>
+  </mat-form-field>
+  <mat-form-field>
+    <input class="form-control" formControlName="startDate" matInput placeholder="Enter a start date" dateFormat [dateType]="'startDate'" [matDatepicker]="picker">
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+  </mat-form-field>
+  <mat-form-field>
+    <input class="form-control" formControlName="endDate" matInput placeholder="Enter a end date" dateFormat [dateType]="'endDate'" [matDatepicker]="picker1">
+    <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+    <mat-datepicker #picker1></mat-datepicker>
+  </mat-form-field>
+</form>
+
+<form [formGroup]="disableCondition">
+  <mat-form-field>
+    <mat-select placeholder="Product" formControlName="product" (change)="productChange($event)">
+      <mat-option *ngFor="let product of products" [value]="product.value">
+        {{ product.viewValue }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <br>
+
+  <label>singleUnderlier</label>
+    <mat-radio-group formControlName="singleUnderlier" (change)="singleUnderlierChange($event)" [disableControl]="!dca.singleUnderlier">
+    <mat-radio-button  value="yes">Yes</mat-radio-button>
+    <mat-radio-button  value="no">No</mat-radio-button>
+  </mat-radio-group><br>
+
+  <div [ngClass]="{myClass: !dca.underlierSecurityVisibilty}"> 
+      <label>underlierSecurity</label>
+      <mat-radio-group formControlName="underlierSecurity" [disableControl]="!dca.underlierSecurity" (change)="underlierSecurityChange($event)">
+        <mat-radio-button  value="yes">Yes</mat-radio-button>
+        <mat-radio-button  value="no">No</mat-radio-button>
+      </mat-radio-group><br>
+    
+      <label>underlierType</label>
+      <mat-radio-group formControlName="underlierType" [disableControl]="!dca.underlierType">
+        <mat-radio-button  value="index">Index</mat-radio-button>
+        <mat-radio-button  value="nonIndex">Non Index</mat-radio-button>
+      </mat-radio-group><br>
+  </div>
+
+  <div [ngClass]="{myClass : dca.underlierSecurityVisibilty}">
+      <label>UnderLier 1</label>
+      <mat-radio-group formControlName="underlier1" [disableControl]="!dca.underlier1">
+        <mat-radio-button  value="yes">Yes</mat-radio-button>
+        <mat-radio-button  value="no">No</mat-radio-button>
+      </mat-radio-group><br>
+    
+      <label>UnderLier 2</label>
+      <mat-radio-group formControlName="underlier2" [disableControl]="!dca.underlier2">
+          <mat-radio-button  value="yes">Yes</mat-radio-button>
+          <mat-radio-button  value="no">No</mat-radio-button>
+      </mat-radio-group><br>
+  </div>
+
+  <label>inverseUnderlier</label>
+  <mat-radio-group formControlName="inverseUnderlier" [disableControl]="!dca.inverseUnderlier">
+    <mat-radio-button  value="yes">Yes</mat-radio-button>
+    <mat-radio-button  value="no">No</mat-radio-button>
+  </mat-radio-group><br>
+
+  <mat-form-field>
+    <input matInput formControlName="delta" placeholder="Delta" appDeltaDir>
+  </mat-form-field><br>
+  
+  <button mat-button (click)="submit()">Submit</button>
+
+  <button class="abc" mat-button (click)="service()">Service</button>
+
+  <div  (clickOutside)="onClickedOutside($event)" [exclude]="'button.abc'" *ngIf="abc">My element</div>
+  <!-- (clickOutside)="onClickedOutside($event)" -->
+</form>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

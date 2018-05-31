@@ -1,4 +1,21 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
+import { Subscription } from 'rxjs/Subscription';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormControl} from '@angular/forms';
+import { ControlContainer } from '@angular/forms';
+import { startWith } from 'rxjs/operators/startWith';
+import { map} from 'rxjs/operators/map';
+import { Child1Component } from './child1/child1.component'
+import { MatIconRegistry } from "@angular/material/icon";
+import { DomSanitizer } from "@angular/platform-browser"; 
+
+import { SampleService } from './sample.service'
+import { Observable } from 'rxjs/Observable';
+import * as moment from 'moment-mini-ts'
+import * as _ from 'lodash'
+import { browser } from 'protractor';
+import { MAT_RADIO_GROUP_CONTROL_VALUE_ACCESSOR } from '@angular/material';
+
 
 @Component({
   selector: 'app-root',
@@ -6,5 +23,303 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'app';
+
+  sample = true
+  newLineText = "Akshat<br/>Jain"
+  subscription: Subscription;
+
+  abc = false
+
+
+  // parentForm : FormGroup
+  // @ViewChild(Child1Component) child:Child1Component
+
+  notionalForm : FormGroup
+  disableCondition : FormGroup
+
+  products = [
+    {value: 'product1', viewValue: 'Product1'},
+    {value: 'product2', viewValue: 'Product2'},
+    {value: 'product3', viewValue: 'Product3'},
+    {value: 'product4', viewValue: 'Product4'},
+  ];
+
+
+    dca = {
+      singleUnderlier : false,
+      underlierSecurity : false,
+      underlierType : false,
+      underlier1 : false,
+      underlier2 : false,
+      inverseUnderlier : false,
+      underlierSecurityVisibilty : true,
+      delta : false,
+  }
+
+  resetFieldArray = [
+    {name : 'product' , value : "", disableValue : true},
+    {name : 'underlierSecurityVisibilty' , value : "" , disableValue : true},
+    {name : 'productOption' , value : "" , disableValue : false},
+    {name : 'singleUnderlier' , value : "yes" , disableValue : true},
+    {name : 'underlierSecurity' , value : "" , disableValue : true},
+    {name : 'underlierType' , value : "" , disableValue : true},
+    {name : 'underlier1' , value : "" , disableValue : true},
+    {name : 'underlier2' , value : "" , disableValue : true},
+    {name : 'inverseUnderlier' , value : "" , disableValue : true},
+    {name : 'delta' , value : "" , disableValue : true},
+  ]
+
+  constructor(private fb : FormBuilder,
+    private matIconRegistry: MatIconRegistry,
+    private domSanitizer: DomSanitizer,
+    private subSer : SampleService){
+    
+    this.matIconRegistry.addSvgIcon(
+      `icon_label`,
+      this.domSanitizer.bypassSecurityTrustResourceUrl("../assets/sample.svg")
+    );
+  }
+
+  ngOnInit() {
+    // this.parentForm = this.fb.group({
+    //   sampleField : ['', Validators.required],
+    //   startDate : [moment().add(2,'days').toISOString(), Validators.required],
+    //   endDate : ['', Validators.required]
+    // }) 
+     this.notionalForm = this.fb.group({
+      "notional" : [''],
+      "startDate" : [''],
+      "endDate" : ['']
+    })
+
+    this.disableCondition = this.fb.group({
+      product : [''],
+      singleUnderlier : ['yes'],
+      underlierSecurity : [''],
+      underlierType : [''],
+      underlier1 : [''],
+      underlier2 : [''],
+      inverseUnderlier : [''],
+      delta : [''],
+    })
+    //this.parentForm.controls['startDate'].patchValue(moment().toISOString())
+  }
+
+  submit() {
+    // var a = String(this.parentForm.value['sampleField'])
+    // parseInt(a.replace(/,/g,''))
+    // this.parentForm.controls['sampleField'].setValue(parseInt(a.replace(/,/g,'')))
+    // console.log(this.parentForm)
+    console.log(this.disableCondition)
+  }
+
+  productChange($event) {
+    this.resetField('product')
+    if($event.value == "product1" || $event.value == "product2") {
+      this.subSer.sendDisable({product : false })
+    } else {
+      this.subSer.sendDisable({product : true })
+    } 
+  }
+
+  singleUnderlierChange($event) {
+    this.resetField('singleUnderlier')
+    this.subSer.sendDisable({underlierSecurityVisibilty : ($event.value == "no")? false : true })
+  }
+
+  underlierSecurityChange($event) {
+    this.resetField('underlierSecurity')
+    this.subSer.sendDisable({underlierSecurity : ($event.value == "no")? false : true })
+    this.subSer.sendDisable({productOption : (this.disableCondition.controls['product'].value == "product3") ? true : false})
+  }
+
+  sampleF($event) {
+    console.log($event)
+  }
+  
+  service() {
+    // this.subSer.sendDisable({product : false })
+    this.abc = !this.abc
+  }
+
+  onClickedOutside(e: Event) {
+    console.log('Clicked outside:', e);
+    this.abc = false
+  }
+
+
+
+  resetField(fieldName) {
+    let a = this.resetFieldArray.findIndex(x => x.name == fieldName)
+    if(a != -1) {
+      let b = this.resetFieldArray.slice(a+1)
+      let obj = {}
+      for(let each of b) {
+        let fieldName = each['name']
+        try {
+          this.disableCondition.controls[fieldName].patchValue(each.value)  
+        } catch (error) {
+          
+        }
+        obj[fieldName] = each.disableValue
+      }
+      this.subSer.sendDisable(obj)
+    }
+  }
+
+  ngDoCheck() {
+    this.subscription = this.subSer.getDisable().subscribe(message => {
+      this.dca.singleUnderlier = message.product && message.singleUnderlier
+      this.dca.underlierSecurity = message.product && message.underlierSecurityVisibilty
+      this.dca.underlierType = message.product && message.underlierSecurityVisibilty && message.underlierSecurity
+      this.dca.underlier1 = message.product && !message.underlierSecurityVisibilty
+      this.dca.underlier2 = message.product && !message.underlierSecurityVisibilty
+      this.dca.inverseUnderlier = message.product && message.underlierSecurity
+      this.dca.underlierSecurityVisibilty = message.underlierSecurityVisibilty
+      this.dca.delta = (message.product && message.underlierSecurity) || message.productOption
+    })  
+  }
+
+
+  
+
+
+
+  // FForm: FormGroup;
+  // @ViewChild(Child1Component) child1Component: Child1Component
+
+  // constructor(private ms : FService,private fb: FormBuilder){
+  //   this.createForm()
+  // }
+
+  // myControl: FormControl = new FormControl();
+
+  // options = [
+  //   'One',
+  //   'Two',
+  //   'Three'
+  // ];
+
+  // filteredOptions: Observable<string[]>;
+
+  // ngOnInit() {
+  //   this.FForm = this.fb.group({
+  //     date : ['', Validators.required ],
+  //     F : this.child1Component.initialise(this.fb)
+  //   })
+  //   this.filteredOptions = this.myControl.valueChanges
+  //     .pipe(
+  //       startWith(''),
+  //       map(val => {
+  //         return this.filter(val)
+  //       })
+  //     );
+
+    
+  // }
+
+  // filter(val: string): string[] {
+  //   return this.options.filter(option =>
+  //     option.toLowerCase().indexOf(val.toLowerCase()) === 0);
+  // }
+  
+  
+  // subscription: Subscription;
+
+  // FAbc = 1
+  // FDef = Number
+  // FEfg = Number
+
+  // createForm() {
+    
+  // }
+
+
+  // ngDoCheck() {
+  //   //Called every time that the input properties of a component or a directive are checked. Use it to extend change detection by performing a custom check.
+  //   //Add 'implements DoCheck' to the class.
+  //   this.subscription = this.ms.getMessage().subscribe(message => {
+  //     this.FEfg = message.text
+  //   })
+  // }
+
+
+  
+  // // FObject = {}
+  // // FArray = [{},{},{}]
+  // // tabArray = []
+
+  // // foods = [
+  // //   {value: 'steak-0', viewValue: 'Steak'},
+  // //   {value: 'pizza-1', viewValue: 'Pizza'},
+  // //   {value: 'tacos-2', viewValue: 'Tacos'}
+  // // ];
+
+  // // add() {
+  // //   this.FArray.push(this.FObject)
+  // // }
+
+  // // reset() {
+  // //   this.FArray.splice(0,this.FArray.length)
+  // //   // this.FObject = {}
+  // //   for(var i=0;i<3;i++) {
+  // //     this.FArray.push({})
+  // //   }
+  // // }
+
+  // // select(input) {
+  // //   let F = {
+  // //     value : input.value
+  // //   }
+  // //   this.tabArray.push(F)
+  // // }
+  // sampleArray = [{},{},{}]
+
+  // foods = [
+  //   {value: 'steak-0', viewValue: 'Steak'},
+  //   {value: 'pizza-1', viewValue: 'Pizza'},
+  //   {value: 'tacos-2', viewValue: 'Tacos'}
+  // ];
+
+  // add() {
+  //   this.sampleArray.push({})
+  //   this.ms.sendMessage(this.sampleAbc)
+  //   this.sampleAbc++
+  // }
+
+  // reset() {
+  //   this.sampleArray.splice(0, this.sampleArray.length)
+  //   for(var i = 0;i<3;i++) {
+  //     this.add()
+  //   }
+  //   this.subscription = this.ms.getMessage().subscribe(message => {
+  //     this.sampleDef = message.text
+  //   })
+  // }
+
+  // sample($event) {
+  //   console.log($event)
+  // }
+
+  // tabArray = []
+
+  // select(input, index) {
+  //   let legno = parseInt(index)+1
+  //   console.log(this.tabArray.findIndex((item) => {
+  //     return item.legno == legno;
+  //   }))
+  //   let bool = this.tabArray.find(item => item.legno == parseInt(index)+1)
+  //   console.log(bool)
+  //   if(!bool){
+  //     this.tabArray.push(
+  //       {
+  //         legno: legno
+  //       }
+  //     )
+  //   }
+
+  // }
 }
+
+
+

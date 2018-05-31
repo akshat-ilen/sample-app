@@ -1,0 +1,21 @@
+md-datepicker.md-THEME_NAME-theme {
+    background: magenta;
+  }
+
+  .example-form {
+    min-width: 150px;
+    max-width: 500px;
+    width: 100%;
+  }
+  
+  .example-full-width {
+    width: 100%;
+  }
+
+.datePicker:enabled:hover {
+  border : 10px solid red !important;
+}
+
+.myClass {
+  display : none
+}
