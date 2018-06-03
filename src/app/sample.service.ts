@@ -24,6 +24,8 @@ export class SampleService {
     productOption : false
   })
 
+  private LegSubject = new Subject<any>()
+
   sendMessage(message : Number) {
     this.subject.next({text : message})
   }
@@ -42,6 +44,14 @@ export class SampleService {
 
   getDisable() : Observable<any> {
     return this.disableSubject.asObservable()
+  }
+
+  sendLeg(object) {
+    this.LegSubject.next(object)
+  }
+
+  getLeg() : Observable<any> {
+    return this.LegSubject.asObservable()
   }
   
 

@@ -73,7 +73,7 @@
 
 <!-- <input [formControl]="formControl" [disableControl]="true"> -->
 
-<form [formGroup]="notionalForm">
+<!-- <form [formGroup]="notionalForm">
   <mat-form-field>
     <input class="form-control" formControlName="notional" matInput placeholder="Enter a number" disableControl>
   </mat-form-field>
@@ -145,23 +145,53 @@
   
   <button mat-button (click)="submit()">Submit</button>
 
-  <button class="abc" mat-button (click)="service()">Service</button>
+  <button class="abcd" mat-button (click)="abc = !abc">Service</button>
 
-  <div  (clickOutside)="onClickedOutside($event)" [exclude]="'button.abc'" *ngIf="abc">My element</div>
-  <!-- (clickOutside)="onClickedOutside($event)" -->
+  <div  (clickOutside)="abc = false" [exclude]="'button.abcd'" *ngIf="abc">My element</div>
+  (clickOutside)="onClickedOutside($event)"
+</form> -->
+
+<form [formGroup]="LegsForm">
+  <div formArrayName="legs" *ngFor="let leg of LegsForm.get('legs').controls; let i = index;">
+    <div [formGroupName]="i">
+      {{i + 1}}
+      <input type="hidden" formControlName="legNo" [ngModel]="i+1">
+      <mat-form-field>
+        <mat-select placeholder="Leg Type" formControlName="legs">
+          <mat-option *ngFor="let legType of LegTypes" [value]="legType">
+            {{ legType }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-select placeholder="Block Type" formControlName="blocks">
+          <mat-option *ngFor="let blockType of BlockTypes" [value]="blockType">
+            {{ blockType }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <!-- <button mat-button (click)="removeLeg(i)">Remove Leg</button> -->
+    </div>
+  </div>
+  <button mat-button (click)="addLeg()">Add Leg</button>
+  <button mat-button (click)="submit()">Submit</button>
+  <!-- <button mat-button (click)="reset()">Reset</button> -->
 </form>
 
+<br>
+<br>
 
 
-
-
-
-
-
-
-
-
-
-
-
-
+<form [formGroup]="RatesForm">
+  <mat-tab-group>
+    <mat-tab formArrayName="rates" *ngFor="let rate of RatesForm.get('rates').controls | sort: 'legNo'; let i = index;" label="Leg {{tabs[i].legNo}}">
+      <div [formGroupName]="i">
+          <input type="hidden" formControlName="legNo" [ngModel]="i+1">
+          <mat-form-field class="example-full-width">
+            <input matInput placeholder="Rate Price" formControlName="ratePrice">
+          </mat-form-field>
+      </div>
+    </mat-tab>
+  </mat-tab-group>
+</form>

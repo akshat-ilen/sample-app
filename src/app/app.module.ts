@@ -23,7 +23,8 @@ import { SmartDateDirective } from './smart-date.directive';
 import { DateFormatDirective } from './date-format.directive';
 import { DisableControlDirective } from './disable-control.directive';
 import { DeltaDirDirective } from './delta-dir.directive';
-import { ClickOutsideDirective } from './click-outside.directive'
+import { ClickOutsideDirective } from './click-outside.directive';
+import { SortPipe } from './sort.pipe'
 
 
 @NgModule({
@@ -35,7 +36,8 @@ import { ClickOutsideDirective } from './click-outside.directive'
     DateFormatDirective,
     DisableControlDirective,
     DeltaDirDirective,
-    ClickOutsideDirective
+    ClickOutsideDirective,
+    SortPipe
   ],
   imports: [
     BrowserModule,
