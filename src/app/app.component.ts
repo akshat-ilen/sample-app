@@ -38,12 +38,11 @@ export class AppComponent {
 
   LegsForm : FormGroup
   RatesForm : FormGroup
-  subscription: Subscription;
+  // subscription: Subscription;
   tabs: any[] = []
   // Legs: any[] = []
 
-  constructor(private _fb : FormBuilder, 
-    private sampleService : SampleService) {
+  constructor(private _fb : FormBuilder) {
 
   }
 
@@ -73,23 +72,6 @@ export class AppComponent {
     Legs.push(this.createLeg())
   }
 
-  createRate() {
-    return this._fb.group({
-      legNo : [],
-      ratePrice : ['']
-    })  
-  }
-
-  addRate(): void {
-    const Rate = <FormArray>this.RatesForm.controls['rates']
-    Rate.push(this.createRate())
-  }
-
-  removeRate(i) : void {
-    const Legs = <FormArray>this.RatesForm.controls['rates']
-    Legs.removeAt(i)
-  }
-
   removeLeg(i) : void {
     const Legs = <FormArray>this.LegsForm.controls['legs']
     Legs.removeAt(i)
@@ -97,6 +79,23 @@ export class AppComponent {
     let index = this.tabs.findIndex(x => x.legNo == i+1)
     if(index != -1)  this.removeTab(index)
 
+  }
+
+  createRate(legNo) {
+    return this._fb.group({
+      legNo : [legNo],
+      ratePrice : ['']
+    })  
+  }
+
+  addRate(legNo): void {
+    const Rate = <FormArray>this.RatesForm.controls['rates']
+    Rate.push(this.createRate(legNo))
+  }
+
+  removeRate(i) : void {
+    const Legs = <FormArray>this.RatesForm.controls['rates']
+    Legs.removeAt(i)
   }
 
   reset() : void {
@@ -129,7 +128,7 @@ export class AppComponent {
 
   addTab(formVal) {
     this.tabs.push(formVal)
-    this.addRate()
+    this.addRate(formVal.legNo)
     this.sortTab()
   }
 

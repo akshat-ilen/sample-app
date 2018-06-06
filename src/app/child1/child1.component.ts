@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 
 @Component({
@@ -8,16 +8,17 @@ import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms'
 })
 export class Child1Component {
 
-  childForm : FormGroup
-  date : FormControl
+  @Input('group') public rateForm : FormGroup
+  @Input('index') public index : Number
+  // date : FormControl
 
-  initialise(fb:FormBuilder) {
+  // initialise(fb:FormBuilder) {
     
-    this.childForm = fb.group({
-      date : ['',Validators.required]
-    })
+  //   this.childForm = fb.group({
+  //     date : ['',Validators.required]
+  //   })
 
-    return this.childForm
-  }
+  //   return this.childForm
+  // }
 
 }

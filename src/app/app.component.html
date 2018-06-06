@@ -182,15 +182,11 @@
 <br>
 <br>
 
-
 <form [formGroup]="RatesForm">
   <mat-tab-group>
     <mat-tab formArrayName="rates" *ngFor="let rate of RatesForm.get('rates').controls | sort: 'legNo'; let i = index;" label="Leg {{tabs[i].legNo}}">
       <div [formGroupName]="i">
-          <input type="hidden" formControlName="legNo" [ngModel]="i+1">
-          <mat-form-field class="example-full-width">
-            <input matInput placeholder="Rate Price" formControlName="ratePrice">
-          </mat-form-field>
+          <app-child1 [index]="i" [group]="RatesForm.get('rates').controls[i]"></app-child1>
       </div>
     </mat-tab>
   </mat-tab-group>
