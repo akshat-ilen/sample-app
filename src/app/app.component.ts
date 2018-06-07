@@ -48,7 +48,7 @@ export class AppComponent {
 
   ngOnInit() {
     this.LegsForm = this._fb.group({
-      legs : this._fb.array([this.createLeg()])
+      legs : this._fb.array([])
     })
 
     this.RatesForm = this._fb.group({
@@ -57,6 +57,22 @@ export class AppComponent {
 
 
     this.onFormChange()
+  }
+  
+  // Add this line
+  ngAfterContentInit() {
+    this.reset()
+  }
+
+  // Add this line
+  resetLegsForm(){
+    const Legs = <FormArray>this.LegsForm.controls['legs']
+    while(Legs.length > 0) {
+      Legs.removeAt(0)
+    } 
+    for(let i =0;i<3;i++) {
+      Legs.push(this.createLeg())
+    }
   }
 
   createLeg() {
@@ -98,8 +114,16 @@ export class AppComponent {
     Legs.removeAt(i)
   }
 
+  // Add this line
+  resetRatesForm() : void {
+    const Rate = <FormArray>this.RatesForm.controls['rates']
+    while(Rate.length > 0) Rate.removeAt(0)
+  }
+
+  // Add this line
   reset() : void {
-    console.log(null)
+    this.resetLegsForm()
+    this.resetRatesForm()
   }
 
   submit() {
