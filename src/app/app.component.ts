@@ -1,7 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
-import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
-import { FormControl} from '@angular/forms';
+import { FormBuilder, FormControl , FormGroup, Validators, FormArray, AbstractControl } from '@angular/forms';
 import { ControlContainer } from '@angular/forms';
 import { startWith } from 'rxjs/operators/startWith';
 import { map} from 'rxjs/operators/map';
@@ -36,25 +35,32 @@ export class AppComponent {
     'No'
   ]
 
+
+
   LegsForm : FormGroup
   RatesForm : FormGroup
   // subscription: Subscription;
   tabs: any[] = []
+  
+  aa = moment('2015-01-01')
+  bb = moment('2021-01-01')
+  sampleDiff = this.bb.diff(this.aa,'years',true)
   // Legs: any[] = []
 
   constructor(private _fb : FormBuilder) {
-
+    
   }
 
   ngOnInit() {
     this.LegsForm = this._fb.group({
-      legs : this._fb.array([])
+      delta : [''],
+      legs : this._fb.array([]),
+      isChecked : ['']
     })
 
     this.RatesForm = this._fb.group({
       rates : this._fb.array([])
     })
-
 
     this.onFormChange()
   }
@@ -62,6 +68,24 @@ export class AppComponent {
   // Add this line
   ngAfterContentInit() {
     this.reset()
+  }
+
+  legsFormValidator(control : FormArray) {
+    let values = control.get('legs').value
+    let count = 0
+    for(let val of values) {
+      if(val.legs != "") count++
+    }
+    if(count < 2) return {invalidLegLength : true}
+    return null
+  }
+
+  checkboxChange($event) {
+    if($event.target.checked) {
+      this.LegsForm.setValidators([this.legsFormValidator])
+    } else {
+      this.LegsForm.setValidators([])
+    }
   }
 
   // Add this line
@@ -94,19 +118,18 @@ export class AppComponent {
 
     let index = this.tabs.findIndex(x => x.legNo == i+1)
     if(index != -1)  this.removeTab(index)
-
   }
 
-  createRate(legNo) {
+  createRate(legNo, product) {
     return this._fb.group({
       legNo : [legNo],
-      ratePrice : ['']
+      ratePrice : [{value : product, disabled : true}]
     })  
   }
 
-  addRate(legNo): void {
+  addRate(legNo, product, boolean?): void {
     const Rate = <FormArray>this.RatesForm.controls['rates']
-    Rate.push(this.createRate(legNo))
+    Rate.push(this.createRate(legNo, product))
   }
 
   removeRate(i) : void {
@@ -127,7 +150,19 @@ export class AppComponent {
   }
 
   submit() {
+    const Rate = <FormArray>this.RatesForm.controls['rates']
+    for(let i=0 ; i<Rate.length ; i++) {
+      let b = <FormGroup>Rate.controls[i]
+      b.controls['ratePrice'].enable()
+    }
+    console.log(this.LegsForm.value)
     console.log(this.RatesForm.value)
+  }
+
+  disable() {
+    this.LegsForm.controls['legs'].disable()
+    this.LegsForm.get('legs').disabled
+    console.log(this.LegsForm.controls['legs'].enable)
   }
 
   onFormChange() : void {
@@ -146,13 +181,12 @@ export class AppComponent {
       } else {
         this.checkFormChangeOnTabs(index, i) ?  true : this.checkToGenerateTabs(formVal) ? true : this.removeTab(index)
       }
-
     }
   }
 
   addTab(formVal) {
     this.tabs.push(formVal)
-    this.addRate(formVal.legNo)
+    this.addRate(formVal.legNo, 'Akshat')
     this.sortTab()
   }
 
@@ -178,6 +212,19 @@ export class AppComponent {
       else if (a.legNo > b.legNo) return 1;
       else return 0;
     })
+  }
+
+  setBlock($event,i) {
+    
+    let legsArray = <FormArray>this.LegsForm.controls['legs']
+    let legGroup = <FormGroup>legsArray.controls[i]
+    
+    if($event.value == "MAT") {
+      legGroup.controls['blocks'].enable()
+      legGroup.controls['blocks'].patchValue('Not Sure')  
+    } else {
+      legGroup.controls['blocks'].disable()
+    }
   }
   
   

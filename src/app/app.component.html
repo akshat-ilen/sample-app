@@ -157,7 +157,7 @@
       {{i + 1}}
       <input type="hidden" formControlName="legNo" [ngModel]="i+1">
       <mat-form-field>
-        <mat-select placeholder="Leg Type" formControlName="legs">
+        <mat-select placeholder="Leg Type" formControlName="legs" (change)="setBlock($event,i)">
           <mat-option *ngFor="let legType of LegTypes" [value]="legType">
             {{ legType }}
           </mat-option>
@@ -177,7 +177,21 @@
   <button mat-button (click)="addLeg()">Add Leg</button>
   <button mat-button (click)="submit()">Submit</button>
   <button mat-button (click)="reset()">Reset</button>
+  <button mat-button (click)="disable()">Disable</button>
+  <mat-form-field>
+    <input matInput formControlName="delta" placeholder="Delta" appDeltaDir>
+  </mat-form-field><br>
+  <input type="checkbox" formControlName="isChecked" (change)="checkboxChange($event)">
 </form>
+
+<div *ngIf="LegsForm.errors?.invalidLegLength">
+  Oops, only urls served over https and only from the .io top-level domain are accepted.
+  Talk about restrictions!
+</div>
+
+{{LegsForm.value | json}}
+{{LegsForm.valid}}
+{{sampleDiff}}
 
 <br>
 <br>
@@ -191,3 +205,27 @@
     </mat-tab>
   </mat-tab-group>
 </form>
+
+<!-- <button (click)="isChecked = !isChecked">toggle</button> -->
+
+
+<!-- <form [formGroup]="DealDetailForm">
+  <mat-tab-group>
+    <mat-tab [formArrayName]="assetClassName" 
+      *ngFor="let rate of DealDetailForm.get(assetClassName).controls | sort: 'legNo'; let i = index;" 
+      label="Leg {{tabs[i].legNo}}">
+      <div [formGroupName]="i">
+        <div *ngIf="(dynamicApiName == 'RATES')">
+            <rate-deal-detail [index]="i" 
+              [group]="DealDetailForm.get(assetClassName).controls[i]">
+            </rate-deal-detail>
+        </div>
+        <div *ngIf="(dynamicApiName == 'CREDITS')">
+            <credit-deal-detail [index]="i" 
+              [group]="DealDetailForm.get(assetClassName).controls[i]">
+            </credit-deal-detail>
+        </div>
+      </div>
+    </mat-tab>
+  </mat-tab-group>
+</form> -->

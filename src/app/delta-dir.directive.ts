@@ -8,10 +8,10 @@ export class DeltaDirDirective {
 
    //Keydown Event
    @HostListener('keydown',['$event']) onkeydown(e : Event){
-    
-    // if(!e['key'].match(/[0-9+\-.]/)) return false
-    
-      
+
+    // if(e['key'].match(/[!@#$%^&*()_=]/)) return false
+
+
   }
 
   //KeyUp Event
