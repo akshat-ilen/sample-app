@@ -14,19 +14,41 @@ import * as moment from 'moment-mini-ts'
 import * as _ from 'lodash'
 import { browser } from 'protractor';
 import { MAT_RADIO_GROUP_CONTROL_VALUE_ACCESSOR } from '@angular/material';
+import { MAT_SELECT_SCROLL_STRATEGY } from '@angular/material';
+    import { Overlay, BlockScrollStrategy } from '@angular/cdk/overlay';
+
+export function scrollFactory(overlay: Overlay): () => BlockScrollStrategy {
+  return () => overlay.scrollStrategies.block();
+}
 
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.css'],
+  
 })
 export class AppComponent {
 
   LegTypes = [
     'MAT',
     'Non-Mat',
-    'Not Sure'
+    'Not Sure',
+    'MAT',
+    'Non-Mat',
+    'Not Sure',
+    'MAT',
+    'Non-Mat',
+    'Not Sure',
+    'MAT',
+    'Non-Mat',
+    'Not Sure',
+    'MAT',
+    'Non-Mat',
+    'Not Sure',
+    'MAT',
+    'Non-Mat',
+    'Not Sure',
   ]
 
   BlockTypes = [
@@ -71,20 +93,21 @@ export class AppComponent {
   }
 
   legsFormValidator(control : FormArray) {
-    let values = control.get('legs').value
+    let values = control.value
     let count = 0
     for(let val of values) {
       if(val.legs != "") count++
     }
+    console.log(values)
     if(count < 2) return {invalidLegLength : true}
     return null
   }
 
   checkboxChange($event) {
     if($event.target.checked) {
-      this.LegsForm.setValidators([this.legsFormValidator])
+      this.LegsForm.get('legs').setValidators([this.legsFormValidator])
     } else {
-      this.LegsForm.setValidators([])
+      this.LegsForm.get('legs').setValidators([])
     }
   }
 
@@ -160,9 +183,14 @@ export class AppComponent {
   }
 
   disable() {
-    this.LegsForm.controls['legs'].disable()
-    this.LegsForm.get('legs').disabled
-    console.log(this.LegsForm.controls['legs'].enable)
+    let a = <FormArray>this.LegsForm.controls['legs']
+    for(let i=0; i < a.length-1;i++) {
+      let Legs = a.at(i)
+      Legs.disable()
+    }
+    // this.LegsForm.controls['legs'].disable()
+    // this.LegsForm.get('legs').disabled
+    // console.log(this.LegsForm.controls['legs'].enable)
   }
 
   onFormChange() : void {

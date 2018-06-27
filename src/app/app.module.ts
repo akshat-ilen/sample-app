@@ -26,6 +26,13 @@ import { DeltaDirDirective } from './delta-dir.directive';
 import { ClickOutsideDirective } from './click-outside.directive';
 import { SortPipe } from './sort.pipe'
 
+import { MAT_SELECT_SCROLL_STRATEGY } from '@angular/material';
+    import { Overlay, BlockScrollStrategy } from '@angular/cdk/overlay';
+
+export function scrollFactory(overlay: Overlay): () => BlockScrollStrategy {
+  return () => overlay.scrollStrategies.block();
+}
+
 
 @NgModule({
   declarations: [
@@ -56,7 +63,8 @@ import { SortPipe } from './sort.pipe'
     MatIconModule,
     MatRadioModule
   ],
-  providers: [SampleService],
+  providers: [SampleService,{ provide: MAT_SELECT_SCROLL_STRATEGY, useFactory: scrollFactory, deps: [Overlay] } ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
+
