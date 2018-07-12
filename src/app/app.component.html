@@ -179,8 +179,18 @@
   <button mat-button (click)="reset()">Reset</button>
   <button mat-button (click)="disable()">Disable</button>
   <mat-form-field>
-    <input matInput formControlName="delta" placeholder="Delta" appDeltaDir>
+    <input matInput formControlName="delta" placeholder="Delta">
   </mat-form-field><br>
+  <mat-form-field>
+    <input class="form-control" formControlName="startDate" matInput placeholder="Enter a start date" dateFormat [dateType]="'startDate'" [matDatepicker]="picker">
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+  </mat-form-field>
+  <mat-form-field>
+    <input class="form-control" formControlName="endDate" matInput placeholder="Enter a end date" dateFormat [dateType]="'endDate'" [matDatepicker]="picker1">
+    <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+    <mat-datepicker #picker1></mat-datepicker>
+  </mat-form-field>
   <input type="checkbox" formControlName="isChecked" (change)="checkboxChange($event)">
 </form>
 
@@ -192,6 +202,9 @@
 {{LegsForm.value | json}}
 {{LegsForm.valid}}
 {{sampleDiff}}
+
+<div  (clickOutside)="abc = false" [exclude]="'button.abcd'" *ngIf="abc">My element</div>
+<button class="abcd" mat-button (click)="abc = !abc">Service</button>
 
 <br>
 <br>
@@ -205,6 +218,14 @@
     </mat-tab>
   </mat-tab-group>
 </form>
+
+<!-- Give value to appColor
+  Enter the converter name in String in converterName
+  If the converter has 'contain' function, then enter contain in strings(quotes), else dont enter
+-->
+<span [appColor]="LegsForm.get('delta').value" [converterName]="'Type1Converter'" [converterType]="'contain'">{{LegsForm.value | json}}</span>
+
+
 
 <!-- <button (click)="isChecked = !isChecked">toggle</button> -->
 

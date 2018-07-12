@@ -29,6 +29,8 @@ import { SortPipe } from './sort.pipe'
 import { MAT_SELECT_SCROLL_STRATEGY } from '@angular/material';
     import { Overlay, BlockScrollStrategy } from '@angular/cdk/overlay';
 
+import { ColorDirective } from './color.directive';
+
 export function scrollFactory(overlay: Overlay): () => BlockScrollStrategy {
   return () => overlay.scrollStrategies.block();
 }
@@ -44,7 +46,8 @@ export function scrollFactory(overlay: Overlay): () => BlockScrollStrategy {
     DisableControlDirective,
     DeltaDirDirective,
     ClickOutsideDirective,
-    SortPipe
+    SortPipe,
+    ColorDirective
   ],
   imports: [
     BrowserModule,

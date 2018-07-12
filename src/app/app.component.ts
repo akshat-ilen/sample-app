@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, Optional, Inject, Injectable } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
 import { FormBuilder, FormControl , FormGroup, Validators, FormArray, AbstractControl } from '@angular/forms';
 import { ControlContainer } from '@angular/forms';
@@ -13,7 +13,7 @@ import { Observable } from 'rxjs/Observable';
 import * as moment from 'moment-mini-ts'
 import * as _ from 'lodash'
 import { browser } from 'protractor';
-import { MAT_RADIO_GROUP_CONTROL_VALUE_ACCESSOR } from '@angular/material';
+import { MAT_RADIO_GROUP_CONTROL_VALUE_ACCESSOR, NativeDateAdapter, DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material';
 import { MAT_SELECT_SCROLL_STRATEGY } from '@angular/material';
     import { Overlay, BlockScrollStrategy } from '@angular/cdk/overlay';
 
@@ -22,11 +22,22 @@ export function scrollFactory(overlay: Overlay): () => BlockScrollStrategy {
 }
 
 
+
+
+
+
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
-  
+  providers: [
+    // {provide: MAT_DATE_LOCALE, useValue: 'en-GB'},
+    // // {
+    // //     provide: DateAdapter, useClass: MomentUtcDateAdapter
+    // // },
+    // // {provide: MAT_DATE_FORMATS, useValue: MY_FORMATS},
+]
 })
 export class AppComponent {
 
@@ -64,8 +75,8 @@ export class AppComponent {
   // subscription: Subscription;
   tabs: any[] = []
   
-  aa = moment('2015-01-01')
-  bb = moment('2021-01-01')
+  aa = moment()
+  bb = moment()
   sampleDiff = this.bb.diff(this.aa,'years',true)
   // Legs: any[] = []
 
@@ -74,10 +85,13 @@ export class AppComponent {
   }
 
   ngOnInit() {
+    console.log(this.aa.format('YYYY-MM-DD'),this.bb.format('YYYY-MM-DD'))
     this.LegsForm = this._fb.group({
       delta : [''],
       legs : this._fb.array([]),
-      isChecked : ['']
+      isChecked : [''],
+      startDate : [],
+      endDate : []
     })
 
     this.RatesForm = this._fb.group({
