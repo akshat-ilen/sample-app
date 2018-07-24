@@ -5,7 +5,8 @@ import { Directive, ElementRef, Input, SimpleChanges } from '@angular/core';
 //This structure will parse the Converter and give color
 const  data = {
   "Type1Converter" : { //Name of the converter 
-    "abc" : "red", // value and corresponding color
+    "In Place" : "yellow",
+    "Place" : "red", // value and corresponding color
     "def" : "blue",
     "default" : "green" //You have to put default value in every converter
   },
@@ -56,9 +57,8 @@ export class ColorDirective {
   getColorWithContain(value) {
     if (this.converterName in data) {
       let converter = data[this.converterName]
-      
       for(let convertKey in converter) {
-        if(convertKey.search(value) != -1) {
+        if(value.search(convertKey) != -1) { // Change this line
           return converter[convertKey]
         }
       }

@@ -80,8 +80,13 @@ export class AppComponent {
   sampleDiff = this.bb.diff(this.aa,'years',true)
   // Legs: any[] = []
 
-  constructor(private _fb : FormBuilder) {
-    
+  constructor(private _fb : FormBuilder,
+    private matIconRegistry: MatIconRegistry,
+    private domSanitizer: DomSanitizer) {
+      this.matIconRegistry.addSvgIcon(
+        "checkbox",
+        this.domSanitizer.bypassSecurityTrustResourceUrl("../assets/sample.svg")
+      );
   }
 
   ngOnInit() {

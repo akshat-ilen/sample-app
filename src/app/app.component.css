@@ -19,3 +19,11 @@ md-datepicker.md-THEME_NAME-theme {
 .myClass {
   display : none
 }
+
+.mat-icon.svg-class.mat-icon {
+  fill: black; 
+}
+
+.mat-icon.svg-class-disable.mat-icon {
+  fill: grey; 
+}
