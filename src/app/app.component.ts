@@ -87,6 +87,10 @@ export class AppComponent {
         "checkbox",
         this.domSanitizer.bypassSecurityTrustResourceUrl("../assets/sample.svg")
       );
+      this.matIconRegistry.addSvgIcon(
+        "checkbox-disable",
+        this.domSanitizer.bypassSecurityTrustResourceUrl("../assets/sample-disable.svg")
+      );
   }
 
   ngOnInit() {
