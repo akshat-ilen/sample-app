@@ -1,4 +1,4 @@
-import { Directive, Input, HostListener } from '@angular/core';
+import { Directive, Input, HostListener, Output, EventEmitter } from '@angular/core';
 import * as moment from 'moment-mini-ts'
 import { NgControl } from '@angular/forms';
 
@@ -8,6 +8,7 @@ import { NgControl } from '@angular/forms';
 export class DateFormatDirective {
 
   @Input('dateType') dateType : String
+  @Output('dateSample') dateSample: EventEmitter<any> = new EventEmitter<any>();
 
   dateReplace = [
     {letter : 'd', code : 68, replace : 'days'}, //d
@@ -45,6 +46,7 @@ export class DateFormatDirective {
       value = value.slice(0, -1) 
       this.ngControl.control.patchValue(new Date(value))
     }
+    this.dateSample.emit('true')
   }
   
   decideDate() {

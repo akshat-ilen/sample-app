@@ -21,7 +21,21 @@ export function scrollFactory(overlay: Overlay): () => BlockScrollStrategy {
   return () => overlay.scrollStrategies.block();
 }
 
+var object  = [
+  { index : 0, label : 'Dodd-Frank', link : 'dodd-frank', tradeAllowed : true },
+  { index : 1, label : 'EMIR', link : 'emir', tradeAllowed : true },
+  { index : 2, label : 'FATCA', link : 'fatca', tradeAllowed : true },
+  { index : 3, label : 'AEOI', link : 'aeoi', tradeAllowed : true },
+  { index : 4, label : 'MIFID', link : 'mifid', tradeAllowed : true },
+]
 
+var data = [
+  { GuardTradeAllowed : 0, isTradeAllowed : true },
+  { GuardTradeAllowed : 1, isTradeAllowed : false },
+  { GuardTradeAllowed : 2, isTradeAllowed : true },
+  { GuardTradeAllowed : 3, isTradeAllowed : false },
+  { GuardTradeAllowed : 4, isTradeAllowed : true },
+]
 
 
 
@@ -40,6 +54,7 @@ export function scrollFactory(overlay: Overlay): () => BlockScrollStrategy {
 ]
 })
 export class AppComponent {
+  
 
   LegTypes = [
     'MAT',
@@ -72,12 +87,13 @@ export class AppComponent {
 
   LegsForm : FormGroup
   RatesForm : FormGroup
-  // subscription: Subscription;
+  // subscription: Subscription;  
   tabs: any[] = []
   
   aa = moment()
   bb = moment()
   sampleDiff = this.bb.diff(this.aa,'years',true)
+  objs = []
   // Legs: any[] = []
 
   constructor(private _fb : FormBuilder,
@@ -99,7 +115,7 @@ export class AppComponent {
       delta : [''],
       legs : this._fb.array([]),
       isChecked : [''],
-      startDate : [],
+      startDate : [moment().startOf('date').toISOString()],
       endDate : []
     })
 
@@ -108,6 +124,49 @@ export class AppComponent {
     })
 
     this.onFormChange()
+    console.log(this.generateObject(data, object))
+  }
+
+  generateObject(data, enumObject) {
+    let objs = []
+    data.forEach(element => {
+      let ind = enumObject.findIndex(x => x.index == element.GuardTradeAllowed)
+      let obj = enumObject[ind]
+      let returnObj = {
+        label : obj.label,
+        link : obj.link,
+        tradeAllowed : element.isTradeAllowed  
+      }
+      objs.push(returnObj)
+    });
+    
+    return objs 
+  }
+
+  changeDate($event) {
+      
+      let startDate = moment.utc(this.LegsForm.get('startDate').value)
+      let endDate = moment.utc(this.LegsForm.get('endDate').value)
+      let diff = endDate.diff(startDate,'year',true)
+      if(diff == 4 || diff == 6) {
+        console.log(true)
+      } else {
+        console.log(false)
+      }
+
+    // setTimeout(() => {
+
+    //   let startDate = moment.utc(this.LegsForm.get('startDate').value)
+    //   let endDate = moment.utc(this.LegsForm.get('endDate').value)
+    //   let diff = endDate.diff(startDate,'year',true)
+    //   if(diff == 4 || diff == 6) {
+    //     console.log(true)
+    //   } else {
+    //     console.log(false)
+    //   }
+
+    // },100)
+    
   }
   
   // Add this line
