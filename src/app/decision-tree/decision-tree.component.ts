@@ -27,9 +27,9 @@ export class DecisionTreeComponent implements OnInit {
 
   ValidatorArray = [
     {name: 'ABC', value : 'ABCDEFG', description: '1234567890'},
-    {name: 'DEF', value : 'ABCDEFG', description: '1234567890'},
-    {name: 'GHI', value : 'ABCDEFG', description: '1234567890'},
-    {name: 'JKL', value : 'ABCDEFG', description: '1234567890'},
+    {name: 'DEF', value : 'HIJKL', description: '437564926'},
+    {name: 'GHI', value : 'MNOPQ', description: '1245749305'},
+    {name: 'JKL', value : 'RSTUVW', description: '07856743580'},
   ]
 
   graph = [
@@ -59,8 +59,6 @@ export class DecisionTreeComponent implements OnInit {
         this.value = this.ValidatorArray[validatorIndex].value
         this.description = this.ValidatorArray[validatorIndex].description
       }
-      
-      
     }
     else {
       this.value = ''

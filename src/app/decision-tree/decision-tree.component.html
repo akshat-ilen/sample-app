@@ -4,21 +4,21 @@
 
 <table>
   <tr>
-    <td><button [ngClass]="nodesInfo[1].colorClass" (click)="showValidators('ABC')" mat-button>Node 1</button></td>
-    <td><button [ngClass]="nodesInfo[4].colorClass" mat-button>Node 4</button></td>
-    <td><button [ngClass]="nodesInfo[5].colorClass" mat-button>Node 5</button></td>
-    <td><button [ngClass]="nodesInfo[6].colorClass" mat-button>Node 6</button></td>
-    <td><button [ngClass]="nodesInfo[7].colorClass" mat-button>Node 7</button></td>
+    <td><button [ngClass]="nodesInfo[1].colorClass" (click)="showValidators(nodesInfo[1].ValidatorName)" mat-button>Node 1</button></td>
+    <td><button [ngClass]="nodesInfo[4].colorClass" (click)="showValidators(nodesInfo[4].ValidatorName)" mat-button>Node 4</button></td>
+    <td><button [ngClass]="nodesInfo[5].colorClass" (click)="showValidators(nodesInfo[5].ValidatorName)" mat-button>Node 5</button></td>
+    <td><button [ngClass]="nodesInfo[6].colorClass" (click)="showValidators(nodesInfo[6].ValidatorName)" mat-button>Node 6</button></td>
+    <td><button [ngClass]="nodesInfo[7].colorClass" (click)="showValidators(nodesInfo[7].ValidatorName)" mat-button>Node 7</button></td>
   </tr>
   <tr>
-    <td><button [ngClass]="nodesInfo[2].colorClass" mat-button>Node 2</button></td>
+    <td><button [ngClass]="nodesInfo[2].colorClass" (click)="showValidators(nodesInfo[2].ValidatorName)" mat-button>Node 2</button></td>
     <td></td>
     <td></td>
     <td></td>
-    <td><button [ngClass]="nodesInfo[8].colorClass" mat-button>Node 8</button></td>
+    <td><button [ngClass]="nodesInfo[8].colorClass" (click)="showValidators(nodesInfo[8].ValidatorName)" mat-button>Node 8</button></td>
   </tr>
   <tr>
-    <td><button [ngClass]="nodesInfo[3].colorClass" mat-button>Node 3</button></td>
+    <td><button [ngClass]="nodesInfo[3].colorClass" (click)="showValidators(nodesInfo[3].ValidatorName)" mat-button>Node 3</button></td>
   </tr>
 </table>
 
