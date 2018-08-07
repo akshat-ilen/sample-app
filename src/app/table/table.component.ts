@@ -231,6 +231,12 @@ export class TableComponent implements OnInit {
                   LinDisplayText: 'fgdshajfk',
                   Link: 'fdsakf',
                   SuffixMessage: 'dsfaads'
+                },
+                {
+                  PrefixMessage: 'ABC1122',
+                  LinDisplayText: 'fgdshajfk',
+                  Link: 'fdsakf',
+                  SuffixMessage: 'dsfaads'
                 }
               ]
             },
@@ -389,9 +395,34 @@ export class TableComponent implements OnInit {
     }
   })
   let thirdLevel = this.unwindArray(secondLevel, 'RegActionToBeTaken') 
-  return thirdLevel
+  return this.updateRowSpan(thirdLevel)
   
   
+  }
+
+  updateRowSpan(guardMessageArray) {
+    //FirstColumn
+    let length = guardMessageArray.length
+    let i = 0
+    while(i < length) {
+      guardMessageArray[i]['firstColumn'] = true
+      i = i + guardMessageArray[i]['firstLevel']
+    }
+
+    //Second Column
+    i = 0
+    while(i < length) {
+      guardMessageArray[i]['secondColumn'] = true
+      i = i + guardMessageArray[i]['secondLevel']
+    }
+
+    //Third Column
+    i = 0
+    while(i < length) {
+      guardMessageArray[i]['thirdColumn'] = true
+      i = i + guardMessageArray[i]['thirdLevel']
+    }
+    return guardMessageArray
   }
 
   countLeafNodeFirstLevel(obj) {

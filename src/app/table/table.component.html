@@ -74,9 +74,9 @@
 <table>
   <tbody>
     <tr *ngFor="let list of formList, let i= index">
-        <td [attr.rowspan]="list.firstLevel" *ngIf="checkArray(i,list.firstLevel)">{{ list.RegulationName}}{{list.firstLevel}} </td>
-        <td [attr.rowspan]="list.secondLevel" *ngIf="checkArray(i,list.secondLevel)">{{ list.GuardRegMessageCategory}}{{list.secondLevel}} </td>
-        <td [attr.rowspan]="list.thirdLevel" *ngIf="checkArray(i,list.thirdLevel)">{{ list.GuardMessageText}}{{list.thirdLevel}} </td>
+        <td [attr.rowspan]="list.firstLevel" *ngIf="checkArray(i,list.firstColumn)">{{ list.RegulationName}}{{list.firstLevel}} </td>
+        <td [attr.rowspan]="list.secondLevel" *ngIf="checkArray(i,list.secondColumn)">{{ list.GuardRegMessageCategory}}{{list.secondLevel}} </td>
+        <td [attr.rowspan]="list.thirdLevel" *ngIf="checkArray(i,list.thirdColumn)">{{ list.GuardMessageText}}{{list.thirdLevel}} </td>
         <td [attr.rowspan]="1">{{ list.RegActionToBeTaken.PrefixMessage}}</td>
     </tr>
   </tbody>
