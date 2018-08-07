@@ -1,0 +1,84 @@
+<!-- <table>
+    <thead>
+      <tr>
+        <th>Column 1</th>
+        <th>Column 2</th>
+        <th>Column 3</th>
+        <th>Column 4</th>
+      </tr>
+    </thead>
+    <tbody>
+      <ng-template ngFor let-GuardRegMessages [ngForOf]="GuardRegMessagesList">
+        <ng-container [ngTemplateOutlet]="GuardRegMessageDetails" [ngTemplateOutletContext]="{GuardRegMessages:GuardRegMessages}"></ng-container>
+      </ng-template>
+    </tbody>
+</table>
+
+
+
+<ng-template #GuardRegMessageDetails let-GuardRegMessages="GuardRegMessages">
+  <tr>
+      <td [attr.rowspan]="GuardRegMessages.GuardRegMessageDetailList.length">{{GuardRegMessages.RegulationName}}</td>
+      <ng-container [ngTemplateOutlet]="GuardRegMessage" [ngTemplateOutletContext]="{GuardRegMessageDetail:GuardRegMessages.GuardRegMessageDetailList[0]}"></ng-container>
+  </tr>
+  <tr *ngFor="let GuardRegMessageDetail of GuardRegMessages.GuardRegMessageDetailList | slice:1">
+      <ng-container [ngTemplateOutlet]="GuardRegMessage" [ngTemplateOutletContext]="{GuardRegMessageDetail:GuardRegMessageDetail}"></ng-container>
+  </tr>
+</ng-template>
+
+
+<ng-template #GuardRegMessage let-GuardRegMessageDetail='GuardRegMessageDetail'>
+ <td>{{GuardRegMessageDetail.GuardRegMessageCategory}}</td>
+</ng-template> -->
+
+
+<!-- <table>
+
+  <tbody> 
+    <tr>
+      <td [attr.rowspan]="8">{{GuardRegMessagesList[0].RegulationName}}</td>
+      <td [attr.rowspan]="4">{{GuardRegMessagesList[0].GuardRegMessageDetailList[0].GuardRegMessageCategory}}</td>
+      <td [attr.rowspan]="2">{{GuardRegMessagesList[0].GuardRegMessageDetailList[0].GuardRegMessageList[0].GuardMessageText}}</td>
+      <td>{{GuardRegMessagesList[0].GuardRegMessageDetailList[0].GuardRegMessageList[0].RegActionToBeTaken[0].PrefixMessage}}</td>
+    </tr>
+    <tr>
+      <td>{{GuardRegMessagesList[0].GuardRegMessageDetailList[0].GuardRegMessageList[0].RegActionToBeTaken[1].PrefixMessage}}</td>
+    </tr>
+    <tr>
+      <td [attr.rowspan]="2">{{GuardRegMessagesList[0].GuardRegMessageDetailList[0].GuardRegMessageList[1].GuardMessageText}}</td>
+      <td>{{GuardRegMessagesList[0].GuardRegMessageDetailList[0].GuardRegMessageList[1].RegActionToBeTaken[0].PrefixMessage}}</td>
+    </tr>
+    <tr>
+      <td>{{GuardRegMessagesList[0].GuardRegMessageDetailList[0].GuardRegMessageList[1].RegActionToBeTaken[1].PrefixMessage}}</td>
+    </tr>
+
+    <tr>
+      <td [attr.rowspan]="4">{{GuardRegMessagesList[0].GuardRegMessageDetailList[1].GuardRegMessageCategory}}</td>
+      <td [attr.rowspan]="2">{{GuardRegMessagesList[0].GuardRegMessageDetailList[1].GuardRegMessageList[0].GuardMessageText}}</td>
+      <td>{{GuardRegMessagesList[0].GuardRegMessageDetailList[1].GuardRegMessageList[0].RegActionToBeTaken[0].PrefixMessage}}</td>
+    </tr>
+    <tr>
+      <td>{{GuardRegMessagesList[0].GuardRegMessageDetailList[1].GuardRegMessageList[0].RegActionToBeTaken[1].PrefixMessage}}</td>
+    </tr>
+    <tr>
+      <td [attr.rowspan]="2">{{GuardRegMessagesList[0].GuardRegMessageDetailList[1].GuardRegMessageList[1].GuardMessageText}}</td>
+      <td>{{GuardRegMessagesList[0].GuardRegMessageDetailList[1].GuardRegMessageList[1].RegActionToBeTaken[0].PrefixMessage}}</td>
+    </tr>
+    <tr>
+      <td>{{GuardRegMessagesList[0].GuardRegMessageDetailList[1].GuardRegMessageList[1].RegActionToBeTaken[1].PrefixMessage}}</td>
+    </tr>
+  </tbody>
+
+</table> -->
+
+<table>
+  <tbody>
+    <tr *ngFor="let list of formList, let i= index">
+        <td [attr.rowspan]="list.firstLevel" *ngIf="checkArray(i,list.firstLevel)">{{ list.RegulationName}}{{list.firstLevel}} </td>
+        <td [attr.rowspan]="list.secondLevel" *ngIf="checkArray(i,list.secondLevel)">{{ list.GuardRegMessageCategory}}{{list.secondLevel}} </td>
+        <td [attr.rowspan]="list.thirdLevel" *ngIf="checkArray(i,list.thirdLevel)">{{ list.GuardMessageText}}{{list.thirdLevel}} </td>
+        <td [attr.rowspan]="1">{{ list.RegActionToBeTaken.PrefixMessage}}</td>
+    </tr>
+  </tbody>
+</table>
+

@@ -31,6 +31,7 @@ import { MAT_SELECT_SCROLL_STRATEGY } from '@angular/material';
 
 import { ColorDirective } from './color.directive';
 import { DecisionTreeComponent } from './decision-tree/decision-tree.component';
+import { TableComponent } from './table/table.component';
 
 export function scrollFactory(overlay: Overlay): () => BlockScrollStrategy {
   return () => overlay.scrollStrategies.block();
@@ -49,7 +50,8 @@ export function scrollFactory(overlay: Overlay): () => BlockScrollStrategy {
     ClickOutsideDirective,
     SortPipe,
     ColorDirective,
-    DecisionTreeComponent
+    DecisionTreeComponent,
+    TableComponent
   ],
   imports: [
     BrowserModule,

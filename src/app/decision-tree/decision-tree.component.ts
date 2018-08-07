@@ -36,19 +36,20 @@ export class DecisionTreeComponent implements OnInit {
     {node: 0, yes: null, no: null},
     {node: 1, yes: 2, no: 4},
     {node: 2, yes: 3, no: 4},
-    {node: 3, yes: 'end', no: 'end'},
+    {node: 3, yes: 'end', no: 'end', color: 'redColor'},
     {node: 4, yes: 5, no: 8},
     {node: 5, yes: 6, no: 8},
     {node: 6, yes: 7, no: 8},
-    {node: 7, yes: 'end', no: 'end'},
-    {node: 8, yes: 'end', no: 'end'},
+    {node: 7, yes: 'end', no: 'end', color: 'greenColor'},
+    {node: 8, yes: 'end', no: 'end', color: 'redColor'},
   ]
 
   serviceArray = [
     {ExecutionStatus: true, ValidatorName: 'ABC'},//1->2
     {ExecutionStatus: false, ValidatorName: 'DEF'},//2->4
     {ExecutionStatus: true, ValidatorName: 'GHI'},//4->5
-    {ExecutionStatus: false, ValidatorName: 'JKL'},//5->8
+    {ExecutionStatus: true, ValidatorName: 'GHI'},//4->5
+    {ExecutionStatus: true, ValidatorName: 'JKL'},//5->8
   ]
 
   showValidators(validatorName) {
@@ -74,9 +75,26 @@ export class DecisionTreeComponent implements OnInit {
 
   formDecisionTree() {
     let path = this.getPath(this.graph, this.serviceArray)
+
+    let lastPathNode = path[path.length - 1].path
+    let color = ''
+
+    let graphColorIndex = this.graph.findIndex(x => x.node == lastPathNode)
+
+    if(graphColorIndex != -1) {
+      color = this.graph[graphColorIndex].color
+    }
+
+    // if([2,4,6,8,11].findIndex(x => x == lastPathNode) >= 0) {
+    //   color = this.greenColor
+    // } else {
+    //   color = this.redColor
+    // }
+    
+
     path.forEach(element => {
       let nodeIndex = element.path
-      this.nodesInfo[nodeIndex].colorClass = this.redColor
+      this.nodesInfo[nodeIndex].colorClass = color
       this.nodesInfo[nodeIndex].ValidatorName = element.ValidatorName
     });
 
