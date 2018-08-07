@@ -354,10 +354,6 @@ export class TableComponent implements OnInit {
     console.log(this.formList)
   }
 
-  checkArray(index, length) {
-      return ((index)%length) == 0 ? true : false
-  }
-
   unwindArray(arr, f) {
     return arr.reduce((r, o) => r.concat(o[f].map(v => ({ ...o, [f]: v }))), []);
   }
