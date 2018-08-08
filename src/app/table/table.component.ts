@@ -344,6 +344,7 @@ export class TableComponent implements OnInit {
   unwindArray(arr, f) {
     return arr.reduce((r, o) => r.concat(o[f].map(v => ({ ...o, [f]: v }))), []);
   }
+  
 
   handleNull(arr) {
     for(let i = 0; i<arr.length;i++) {
