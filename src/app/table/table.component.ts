@@ -18,20 +18,7 @@ export class TableComponent implements OnInit {
               GuardMessageText: 'ABC111',
               GuardMessageToolTipText: 'fsdagfhjgdsak',
               GuradMessageColor: 'fdgsajhfkd',
-              RegActionToBeTaken: [
-                {
-                  PrefixMessage: 'ABC1111',
-                  LinDisplayText: 'fgdshajfk',
-                  Link: 'fdsakf',
-                  SuffixMessage: 'dsfaads'
-                },
-                {
-                  PrefixMessage: 'ABC1112',
-                  LinDisplayText: 'fgdshajfk',
-                  Link: 'fdsakf',
-                  SuffixMessage: 'dsfaads'
-                }
-              ]
+              RegActionToBeTaken: null
             },
             {
               GuardMessageText: 'ABC112',
@@ -350,12 +337,24 @@ export class TableComponent implements OnInit {
 
   ngOnInit() {
     console.log(this.GuardRegMessagesList)
-    this.formList = this.myFunction(this.GuardRegMessagesList)
+    this.formList = this.myFunction(this.handleNull(this.GuardRegMessagesList))
     console.log(this.formList)
   }
 
   unwindArray(arr, f) {
     return arr.reduce((r, o) => r.concat(o[f].map(v => ({ ...o, [f]: v }))), []);
+  }
+
+  handleNull(arr) {
+    for(let i = 0; i<arr.length;i++) {
+      for(let j=0;j<arr[i].GuardRegMessageList.length;j++) {
+        for(let k=0;k<arr[i].GuardRegMessageList[j].GuardRegSubMessageList.length;k++) {
+          if(arr[i].GuardRegMessageList[j].GuardRegSubMessageList[k].RegActionToBeTaken == null)
+          arr[i].GuardRegMessageList[j].GuardRegSubMessageList[k].RegActionToBeTaken = [{}]
+        }
+      }
+    }
+    return arr  
   }
 
 
