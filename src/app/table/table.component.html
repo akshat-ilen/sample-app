@@ -75,7 +75,7 @@
   <tbody>
     <tr *ngFor="let list of formList, let i= index">
         <td [attr.rowspan]="list.firstLevel" *ngIf="list.firstColumn">{{ list.RegulationName}}{{list.firstLevel}} </td>
-        <td [attr.rowspan]="list.secondLevel" *ngIf="list.secondColumn">{{ list.GuardRegMessageCategory}}{{list.secondLevel}} </td>
+        <td [attr.rowspan]="list.secondLevel" *ngIf="list.secondColumn">{{ list.GuardMessageCategory}}{{list.secondLevel}} </td>
         <td [attr.rowspan]="list.thirdLevel" *ngIf="list.thirdColumn">{{ list.GuardMessageText}}{{list.thirdLevel}} </td>
         <td [attr.rowspan]="1">{{ list.RegActionToBeTaken.PrefixMessage}}</td>
     </tr>

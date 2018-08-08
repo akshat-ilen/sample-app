@@ -10,13 +10,13 @@ export class TableComponent implements OnInit {
   GuardRegMessagesList = [
     {
       RegulationName: 'ABC1',
-      GuardRegMessageDetailList: [
+      GuardRegMessageList: [
         {
-          GuardRegMessageCategory: 'ABC11',
-          GuardRegMessageList: [
+          GuardMessageCategory: 'ABC11',
+          GuardRegSubMessageList: [
             {
               GuardMessageText: 'ABC111',
-              GuardRegMessageToolTipText: 'fsdagfhjgdsak',
+              GuardMessageToolTipText: 'fsdagfhjgdsak',
               GuradMessageColor: 'fdgsajhfkd',
               RegActionToBeTaken: [
                 {
@@ -35,7 +35,7 @@ export class TableComponent implements OnInit {
             },
             {
               GuardMessageText: 'ABC112',
-              GuardRegMessageToolTipText: 'fsdagfhjgdsak',
+              GuardMessageToolTipText: 'fsdagfhjgdsak',
               GuradMessageColor: 'fdgsajhfkd',
               RegActionToBeTaken: [
                 {
@@ -55,11 +55,11 @@ export class TableComponent implements OnInit {
           ]
         },
         {
-          GuardRegMessageCategory: 'ABC12',
-          GuardRegMessageList: [
+          GuardMessageCategory: 'ABC12',
+          GuardRegSubMessageList: [
             {
               GuardMessageText: 'ABC121',
-              GuardRegMessageToolTipText: 'fsdagfhjgdsak',
+              GuardMessageToolTipText: 'fsdagfhjgdsak',
               GuradMessageColor: 'fdgsajhfkd',
               RegActionToBeTaken: [
                 {
@@ -78,7 +78,7 @@ export class TableComponent implements OnInit {
             },
             {
               GuardMessageText: 'ABC122',
-              GuardRegMessageToolTipText: 'fsdagfhjgdsak',
+              GuardMessageToolTipText: 'fsdagfhjgdsak',
               GuradMessageColor: 'fdgsajhfkd',
               RegActionToBeTaken: [
                 {
@@ -101,13 +101,13 @@ export class TableComponent implements OnInit {
     },
     {
       RegulationName: 'ABC1',
-      GuardRegMessageDetailList: [
+      GuardRegMessageList: [
         {
-          GuardRegMessageCategory: 'ABC11',
-          GuardRegMessageList: [
+          GuardMessageCategory: 'ABC11',
+          GuardRegSubMessageList: [
             {
               GuardMessageText: 'ABC111',
-              GuardRegMessageToolTipText: 'fsdagfhjgdsak',
+              GuardMessageToolTipText: 'fsdagfhjgdsak',
               GuradMessageColor: 'fdgsajhfkd',
               RegActionToBeTaken: [
                 {
@@ -126,7 +126,7 @@ export class TableComponent implements OnInit {
             },
             {
               GuardMessageText: 'ABC112',
-              GuardRegMessageToolTipText: 'fsdagfhjgdsak',
+              GuardMessageToolTipText: 'fsdagfhjgdsak',
               GuradMessageColor: 'fdgsajhfkd',
               RegActionToBeTaken: [
                 {
@@ -146,11 +146,11 @@ export class TableComponent implements OnInit {
           ]
         },
         {
-          GuardRegMessageCategory: 'ABC12',
-          GuardRegMessageList: [
+          GuardMessageCategory: 'ABC12',
+          GuardRegSubMessageList: [
             {
               GuardMessageText: 'ABC121',
-              GuardRegMessageToolTipText: 'fsdagfhjgdsak',
+              GuardMessageToolTipText: 'fsdagfhjgdsak',
               GuradMessageColor: 'fdgsajhfkd',
               RegActionToBeTaken: [
                 {
@@ -169,7 +169,7 @@ export class TableComponent implements OnInit {
             },
             {
               GuardMessageText: 'ABC122',
-              GuardRegMessageToolTipText: 'fsdagfhjgdsak',
+              GuardMessageToolTipText: 'fsdagfhjgdsak',
               GuradMessageColor: 'fdgsajhfkd',
               RegActionToBeTaken: [
                 {
@@ -192,13 +192,13 @@ export class TableComponent implements OnInit {
     },
     {
       RegulationName: 'ABC1',
-      GuardRegMessageDetailList: [
+      GuardRegMessageList: [
         {
-          GuardRegMessageCategory: 'ABC11',
-          GuardRegMessageList: [
+          GuardMessageCategory: 'ABC11',
+          GuardRegSubMessageList: [
             {
               GuardMessageText: 'ABC111',
-              GuardRegMessageToolTipText: 'fsdagfhjgdsak',
+              GuardMessageToolTipText: 'fsdagfhjgdsak',
               GuradMessageColor: 'fdgsajhfkd',
               RegActionToBeTaken: [
                 {
@@ -217,7 +217,7 @@ export class TableComponent implements OnInit {
             },
             {
               GuardMessageText: 'ABC112',
-              GuardRegMessageToolTipText: 'fsdagfhjgdsak',
+              GuardMessageToolTipText: 'fsdagfhjgdsak',
               GuradMessageColor: 'fdgsajhfkd',
               RegActionToBeTaken: [
                 {
@@ -243,11 +243,11 @@ export class TableComponent implements OnInit {
           ]
         },
         {
-          GuardRegMessageCategory: 'ABC12',
-          GuardRegMessageList: [
+          GuardMessageCategory: 'ABC12',
+          GuardRegSubMessageList: [
             {
               GuardMessageText: 'ABC121',
-              GuardRegMessageToolTipText: 'fsdagfhjgdsak',
+              GuardMessageToolTipText: 'fsdagfhjgdsak',
               GuradMessageColor: 'fdgsajhfkd',
               RegActionToBeTaken: [
                 {
@@ -266,7 +266,7 @@ export class TableComponent implements OnInit {
             },
             {
               GuardMessageText: 'ABC122',
-              GuardRegMessageToolTipText: 'fsdagfhjgdsak',
+              GuardMessageToolTipText: 'fsdagfhjgdsak',
               GuradMessageColor: 'fdgsajhfkd',
               RegActionToBeTaken: [
                 {
@@ -293,50 +293,50 @@ export class TableComponent implements OnInit {
   RegularList = [
     {
       RegulationName : 'ABC1',
-      GuardRegMessageCategory : 'ABC11',
+      GuardMessageCategory : 'ABC11',
       GuardMessageText : 'ABC111',
       PrefixMessage : 'ABC1111'
   },
   {
       RegulationName : 'ABC1',
-      GuardRegMessageCategory : 'ABC11',
+      GuardMessageCategory : 'ABC11',
       GuardMessageText : 'ABC111',
       PrefixMessage : 'ABC1112' 
   },
   {
       RegulationName : 'ABC1',
-      GuardRegMessageCategory : 'ABC11',
+      GuardMessageCategory : 'ABC11',
       GuardMessageText : 'ABC112',
       PrefixMessage : 'ABC1111' 
   },
   {
       RegulationName : 'ABC1',
-      GuardRegMessageCategory : 'ABC11',
+      GuardMessageCategory : 'ABC11',
       GuardMessageText : 'ABC112',
       PrefixMessage : 'ABC1112' 
   },
   
   {
       RegulationName : 'ABC1',
-      GuardRegMessageCategory : 'ABC12',
+      GuardMessageCategory : 'ABC12',
       GuardMessageText : 'ABC111',
       PrefixMessage : 'ABC1111' 
   },
   {
       RegulationName : 'ABC1',
-      GuardRegMessageCategory : 'ABC12',
+      GuardMessageCategory : 'ABC12',
       GuardMessageText : 'ABC111',
       PrefixMessage : 'ABC1112' 
   },
   {
       RegulationName : 'ABC1',
-      GuardRegMessageCategory : 'ABC12',
+      GuardMessageCategory : 'ABC12',
       GuardMessageText : 'ABC112',
       PrefixMessage : 'ABC1111' 
   },
   {
       RegulationName : 'ABC1',
-      GuardRegMessageCategory : 'ABC12',
+      GuardMessageCategory : 'ABC12',
       GuardMessageText : 'ABC112',
       PrefixMessage : 'ABC1112' 
   },
@@ -364,30 +364,30 @@ export class TableComponent implements OnInit {
       x['firstLevel'] = this.countLeafNodeFirstLevel(x)
       return x
     })
-   let firstLevel = this.unwindArray(preLevel, 'GuardRegMessageDetailList')
+   let firstLevel = this.unwindArray(preLevel, 'GuardRegMessageList')
    firstLevel = firstLevel.map(x => {
      return {
       RegulationName : x.RegulationName,
-      GuardRegMessageCategory : x.GuardRegMessageDetailList.GuardRegMessageCategory,
-      GuardRegMessageList : x.GuardRegMessageDetailList.GuardRegMessageList,
+      GuardMessageCategory : x.GuardRegMessageList.GuardMessageCategory,
+      GuardRegSubMessageList : x.GuardRegMessageList.GuardRegSubMessageList,
       firstLevel : x.firstLevel,
-      secondLevel : this.countLeafNodeSecondLevel(x.GuardRegMessageDetailList)
+      secondLevel : this.countLeafNodeSecondLevel(x.GuardRegMessageList)
      }
    })
    
-   let secondLevel = this.unwindArray(firstLevel, 'GuardRegMessageList') 
+   let secondLevel = this.unwindArray(firstLevel, 'GuardRegSubMessageList') 
    secondLevel = secondLevel.map(x => {
     return {
      RegulationName : x.RegulationName,
-     GuardRegMessageCategory : x.GuardRegMessageCategory,
-     GuardRegMessageList : x.GuardRegMessageList,
+     GuardMessageCategory : x.GuardMessageCategory,
+     GuardRegSubMessageList : x.GuardRegSubMessageList,
      firstLevel : x.firstLevel,
      secondLevel : + x.secondLevel,
-     GuardMessageText : x.GuardRegMessageList.GuardMessageText,
-     GuardRegMessageToolTipText : x.GuardRegMessageList.GuardRegMessageToolTipText,
-     GuradMessageColor : x.GuardRegMessageList.GuradMessageColor,
-     RegActionToBeTaken : x.GuardRegMessageList.RegActionToBeTaken,
-     thirdLevel : this.countLeafNodeThirdLevel(x.GuardRegMessageList)
+     GuardMessageText : x.GuardRegSubMessageList.GuardMessageText,
+     GuardMessageToolTipText : x.GuardRegSubMessageList.GuardMessageToolTipText,
+     GuradMessageColor : x.GuardRegSubMessageList.GuradMessageColor,
+     RegActionToBeTaken : x.GuardRegSubMessageList.RegActionToBeTaken,
+     thirdLevel : this.countLeafNodeThirdLevel(x.GuardRegSubMessageList)
     }
   })
   let thirdLevel = this.unwindArray(secondLevel, 'RegActionToBeTaken') 
@@ -423,9 +423,9 @@ export class TableComponent implements OnInit {
 
   countLeafNodeFirstLevel(obj) {
     let count =0
-    for(let i = 0; i<obj.GuardRegMessageDetailList.length;i++) {
-      for(let j=0;j<obj.GuardRegMessageDetailList[i].GuardRegMessageList.length;j++) {
-        for(let k=0;k<obj.GuardRegMessageDetailList[i].GuardRegMessageList[j].RegActionToBeTaken.length;k++) {
+    for(let i = 0; i<obj.GuardRegMessageList.length;i++) {
+      for(let j=0;j<obj.GuardRegMessageList[i].GuardRegSubMessageList.length;j++) {
+        for(let k=0;k<obj.GuardRegMessageList[i].GuardRegSubMessageList[j].RegActionToBeTaken.length;k++) {
           count = count +1
         }
       }
@@ -435,8 +435,8 @@ export class TableComponent implements OnInit {
 
   countLeafNodeSecondLevel(obj) {
     let count =0
-    for(let j=0;j<obj.GuardRegMessageList.length;j++) {
-      for(let k=0;k<obj.GuardRegMessageList[j].RegActionToBeTaken.length;k++) {
+    for(let j=0;j<obj.GuardRegSubMessageList.length;j++) {
+      for(let k=0;k<obj.GuardRegSubMessageList[j].RegActionToBeTaken.length;k++) {
         count = count +1
       }
     }
