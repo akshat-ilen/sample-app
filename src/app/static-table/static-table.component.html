@@ -1,0 +1,46 @@
+<table border="1"> 
+  <tr>
+    <th>Booking Location</th>
+    <th>Master Status</th> 
+    <th>Process Status</th>
+    <th>Product/ Deal Type</th>
+    <th>Trade Directive Message</th>
+  </tr>
+  <tr>
+    <td [ngClass]="tableDataStructure[0].color">Not parti</td>
+    <td [ngClass]="tableDataStructure[2].color">Any</td>
+    <td [ngClass]="tableDataStructure[5].color">Any</td>
+    <td [ngClass]="tableDataStructure[9].color">CD & LT</td>
+    <td [ngClass]="tableDataStructure[9].color">Trading allowed</td>
+  </tr>
+  <tr>
+    <td [ngClass]="tableDataStructure[1].color" rowspan="7">Parti</td>
+    <td [ngClass]="tableDataStructure[3].color" rowspan="4">Kuch bada text</td>
+    <td [ngClass]="tableDataStructure[6].color" rowspan="2">doc</td>
+    <td [ngClass]="tableDataStructure[10].color">CD & LT</td>
+    <td [ngClass]="tableDataStructure[10].color">Not allowed</td>
+  </tr>
+  <tr>
+    <td [ngClass]="tableDataStructure[11].color">Others</td>
+    <td [ngClass]="tableDataStructure[11].color">Trading allowed</td>
+  </tr>
+  <tr>
+    <td [ngClass]="tableDataStructure[7].color" rowspan="2">doc</td>
+    <td [ngClass]="tableDataStructure[12].color">CD & LT</td>
+    <td [ngClass]="tableDataStructure[12].color">Trading allowed</td>
+  </tr>
+  <tr>
+    <td [ngClass]="tableDataStructure[13].color">Others</td>
+    <td [ngClass]="tableDataStructure[13].color">Trading allowed</td>
+  </tr>
+  <tr>
+    <td [ngClass]="tableDataStructure[4].color" rowspan="2">Blank</td>
+    <td [ngClass]="tableDataStructure[8].color" rowspan="2">Any</td>
+    <td [ngClass]="tableDataStructure[14].color">CD & LT</td>
+    <td [ngClass]="tableDataStructure[14].color">Not allwoed</td>
+  </tr>
+  <tr>
+    <td [ngClass]="tableDataStructure[15].color">Others</td>
+    <td [ngClass]="tableDataStructure[15].color">Allowed</td>
+  </tr>
+</table>

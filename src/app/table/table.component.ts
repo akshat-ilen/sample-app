@@ -344,7 +344,6 @@ export class TableComponent implements OnInit {
   unwindArray(arr, f) {
     return arr.reduce((r, o) => r.concat(o[f].map(v => ({ ...o, [f]: v }))), []);
   }
-  
 
   handleNull(arr) {
     for(let i = 0; i<arr.length;i++) {
@@ -357,7 +356,6 @@ export class TableComponent implements OnInit {
     }
     return arr  
   }
-
 
   myFunction(GuardRegMessagesList) {
     let preLevel = GuardRegMessagesList.map(x => {
@@ -395,7 +393,7 @@ export class TableComponent implements OnInit {
   
   
   }
-
+  
   updateRowSpan(guardMessageArray) {
     //FirstColumn
     let length = guardMessageArray.length
