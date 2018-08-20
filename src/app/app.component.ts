@@ -276,8 +276,9 @@ export class AppComponent {
   }
 
   onFormChange() : void {
-    this.LegsForm.valueChanges.subscribe(val => { 
-      this.generateTabs(val['legs'])
+    (this.LegsForm.get('legs') as FormArray).valueChanges.subscribe(val => {
+      console.log('a')
+      this.generateTabs(val)
     })
   }
 

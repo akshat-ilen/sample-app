@@ -78,7 +78,7 @@ export class StaticTableComponent implements OnInit {
     }
   }
 
-  showPanel(index, show) {
+  showPanel(index, show?) {
     if(show == false) {
       this.nodeOutput = null
       this.nodeValue = null

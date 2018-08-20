@@ -33,6 +33,7 @@ import { ColorDirective } from './color.directive';
 import { DecisionTreeComponent } from './decision-tree/decision-tree.component';
 import { TableComponent } from './table/table.component';
 import { StaticTableComponent } from './static-table/static-table.component';
+import { StaticTable2Component } from './static-table2/static-table2.component';
 
 export function scrollFactory(overlay: Overlay): () => BlockScrollStrategy {
   return () => overlay.scrollStrategies.block();
@@ -53,7 +54,8 @@ export function scrollFactory(overlay: Overlay): () => BlockScrollStrategy {
     ColorDirective,
     DecisionTreeComponent,
     TableComponent,
-    StaticTableComponent
+    StaticTableComponent,
+    StaticTable2Component
   ],
   imports: [
     BrowserModule,
