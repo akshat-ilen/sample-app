@@ -1,4 +1,4 @@
-<app-static-table2></app-static-table2>
+<!-- <app-static-table2></app-static-table2> -->
 <!-- <app-static-table></app-static-table> -->
 <!-- <app-table></app-table> -->
 <!-- <mat-form-field>
@@ -182,8 +182,17 @@
   <button mat-button (click)="reset()">Reset</button>
   <button mat-button (click)="disable()">Disable</button>
   <mat-form-field>
-    <input matInput formControlName="delta" placeholder="Delta">
+    <input matInput formControlName="delta" placeholder="Delta" appDeltaDir>
   </mat-form-field><br>
+  <button mat-button (click)="sampleButton()">Add Leg</button>
+  <button mat-button (click)="sampleButton1()">Add Leg</button>
+  <mat-form-field>
+    <input matInput formControlName="notional" placeholder="Notional" (maxLength)="maxLengthError($event)" disableControl (keyup)="debounceValue.next($event.target.value)">
+    
+    
+    
+  </mat-form-field><div *ngIf="!maxlengthStringError">Max Length Error</div><br>
+
   <mat-form-field>
     <input class="form-control" formControlName="startDate" matInput placeholder="Enter a start date" dateFormat [dateType]="'startDate'" [matDatepicker]="picker">
     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
@@ -227,6 +236,7 @@
   If the converter has 'contain' function, then enter contain in strings(quotes), else dont enter
 -->
 <span [appColor]="LegsForm.get('delta').value" [converterName]="'Type1Converter'" [converterType]="'contain'">{{LegsForm.value | json}}</span>
+
 
 
 <mat-icon class="svg-class" svgIcon="checkbox"></mat-icon>Akshat

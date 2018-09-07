@@ -16,6 +16,10 @@ import { browser } from 'protractor';
 import { MAT_RADIO_GROUP_CONTROL_VALUE_ACCESSOR, NativeDateAdapter, DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material';
 import { MAT_SELECT_SCROLL_STRATEGY } from '@angular/material';
     import { Overlay, BlockScrollStrategy } from '@angular/cdk/overlay';
+import { Subject } from 'rxjs/Subject';
+import 'rxjs/add/operator/debounceTime';
+import 'rxjs/add/operator/distinctUntilChanged';
+import 'rxjs/add/operator/switchMap';
 
 export function scrollFactory(overlay: Overlay): () => BlockScrollStrategy {
   return () => overlay.scrollStrategies.block();
@@ -90,15 +94,18 @@ export class AppComponent {
   // subscription: Subscription;  
   tabs: any[] = []
   
-  aa = moment()
+  aa = moment() 
   bb = moment()
   sampleDiff = this.bb.diff(this.aa,'years',true)
   objs = []
+
+  maxlengthStringError = true
   // Legs: any[] = []
 
   constructor(private _fb : FormBuilder,
     private matIconRegistry: MatIconRegistry,
-    private domSanitizer: DomSanitizer) {
+    private domSanitizer: DomSanitizer,
+    private localService: SampleService) {
       this.matIconRegistry.addSvgIcon(
         "checkbox",
         this.domSanitizer.bypassSecurityTrustResourceUrl("../assets/sample.svg")
@@ -107,12 +114,23 @@ export class AppComponent {
         "checkbox-disable",
         this.domSanitizer.bypassSecurityTrustResourceUrl("../assets/sample-disable.svg")
       );
+
+      this.debounceValue
+        .debounceTime(2000)
+        .distinctUntilChanged()
+        .subscribe(x => {
+          this.localService.getDisable().subscribe(x => console.log(x))
+        })
+
+      
+      // this.debounceValue.debounceTime(200).distinctUntilChanged().switchMap(x => this.sampleDebounceFunction(x))
   }
 
   ngOnInit() {
     console.log(this.aa.format('YYYY-MM-DD'),this.bb.format('YYYY-MM-DD'))
     this.LegsForm = this._fb.group({
-      delta : [''],
+      delta : ['', Validators.required],
+      notional : [''],
       legs : this._fb.array([]),
       isChecked : [''],
       startDate : [moment().startOf('date').toISOString()],
@@ -122,10 +140,44 @@ export class AppComponent {
     this.RatesForm = this._fb.group({
       rates : this._fb.array([])
     })
+    console.log(this.LegsForm.get('delta'))
+    // this.LegsForm.get('delta').markAsTouched({onlySelf:true})
+    // this.LegsForm.get('delta').setValue('12')
+    
+    
+    // this.LegsForm.get('delta').setValue('12')
 
     this.onFormChange()
     console.log(this.generateObject(data, object))
   }
+
+  maxLengthError($event) {
+    this.maxlengthStringError = $event
+  }
+
+  sampleButton() {
+    this.LegsForm.get('delta').setValue('')
+    // this.LegsForm.get('delta').markAsUntouched({onlySelf:true})
+    console.log(this.LegsForm.get('delta'))
+  }
+
+  sampleButton1() {
+    this.LegsForm.get('delta').setValue('12')
+    console.log(this.LegsForm.get('delta'))
+  }
+
+  debounceValue = new Subject<String>()
+
+  
+   
+
+
+  // sampleDebounceFunction(str) {
+  //   console.log(str + 'Akshat')
+  //   return (str + 'Akshat')
+  // }
+
+  
 
   generateObject(data, enumObject) {
     let objs = []
@@ -329,6 +381,10 @@ export class AppComponent {
     
     let legsArray = <FormArray>this.LegsForm.controls['legs']
     let legGroup = <FormGroup>legsArray.controls[i]
+
+    // let creditDealDetailArray = <FormArray>this.creditForm.controls['creditDealDetail']
+    // let creditDealDetailGroup = <FormGroup>creditDealDetailArray.controls[i]
+    // console.log(creditDealDetailGroup.get('Product').value)
     
     if($event.value == "MAT") {
       legGroup.controls['blocks'].enable()
@@ -338,6 +394,7 @@ export class AppComponent {
     }
   }
   
+
   
 
 

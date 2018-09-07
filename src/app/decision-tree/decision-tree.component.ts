@@ -33,13 +33,13 @@ export class DecisionTreeComponent implements OnInit {
   ]
 
   graph = [
-    {node: 0, yes: null, no: null},
-    {node: 1, yes: 2, no: 4},
-    {node: 2, yes: 3, no: 4},
+    {node: 0, yes: null, no: null, color: 'greenColor'},
+    {node: 1, yes: 2, no: 4, color: 'greenColor'},
+    {node: 2, yes: 3, no: 4, color: 'greenColor'},
     {node: 3, yes: 'end', no: 'end', color: 'redColor'},
-    {node: 4, yes: 5, no: 8},
-    {node: 5, yes: 6, no: 8},
-    {node: 6, yes: 7, no: 8},
+    {node: 4, yes: 5, no: 8, color: 'greenColor'},
+    {node: 5, yes: 6, no: 8, color: 'greenColor'},
+    {node: 6, yes: 7, no: 8, color: 'greenColor'},
     {node: 7, yes: 'end', no: 'end', color: 'greenColor'},
     {node: 8, yes: 'end', no: 'end', color: 'redColor'},
   ]

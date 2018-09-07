@@ -86,6 +86,8 @@ export class StaticTable2Component implements OnInit {
       this.nonParticipate = color
     }
   }
+
+  
   
 
 }
