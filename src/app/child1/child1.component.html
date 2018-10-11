@@ -1,5 +1,9 @@
 <form [formGroup]="rateForm">
       <mat-form-field class="example-full-width">
-          <input matInput placeholder="Rate Price" formControlName="ratePrice" readonly>
-        </mat-form-field>
+        <input matInput placeholder="Rate Price" formControlName="ratePrice">
+      </mat-form-field>
+      <mat-form-field class="example-full-width">
+        <input matInput placeholder="sample Price" formControlName="samplePrice">
+      </mat-form-field>
+      {{rateForm.get('legNo').value}}
 </form>

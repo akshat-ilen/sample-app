@@ -10,6 +10,13 @@ export class Child1Component {
 
   @Input('group') public rateForm : FormGroup
   @Input('index') public index : Number
+
+  ngOnInit(): void {
+    
+    //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
+    //Add 'implements OnInit' to the class.
+    this.rateForm.statusChanges.subscribe(x => console.log(x))
+  }
   // date : FormControl
 
   // initialise(fb:FormBuilder) {

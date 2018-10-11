@@ -87,6 +87,8 @@ export class AppComponent {
     'No'
   ]
 
+  disableToggle: Boolean = true
+
 
 
   LegsForm : FormGroup
@@ -100,6 +102,7 @@ export class AppComponent {
   objs = []
 
   maxlengthStringError = true
+  dateChangeVar = null
   // Legs: any[] = []
 
   constructor(private _fb : FormBuilder,
@@ -127,20 +130,21 @@ export class AppComponent {
   }
 
   ngOnInit() {
-    console.log(this.aa.format('YYYY-MM-DD'),this.bb.format('YYYY-MM-DD'))
+    // console.log(this.aa.format('YYYY-MM-DD'),this.bb.format('YYYY-MM-DD'))
     this.LegsForm = this._fb.group({
       delta : ['', Validators.required],
       notional : [''],
       legs : this._fb.array([]),
       isChecked : [''],
       startDate : [moment().startOf('date').toISOString()],
-      endDate : []
+      endDate : ['']
     })
+
 
     this.RatesForm = this._fb.group({
       rates : this._fb.array([])
     })
-    console.log(this.LegsForm.get('delta'))
+    // console.log(this.LegsForm.get('delta'))
     // this.LegsForm.get('delta').markAsTouched({onlySelf:true})
     // this.LegsForm.get('delta').setValue('12')
     
@@ -148,7 +152,34 @@ export class AppComponent {
     // this.LegsForm.get('delta').setValue('12')
 
     this.onFormChange()
-    console.log(this.generateObject(data, object))
+    // console.log(this.generateObject(data, object))
+  }
+
+  sampleDateFunction($event) {
+    this.dateChangeVar = $event.value
+  }
+
+  pseudoSubmit() {
+    let a = this.LegsForm.get('fghjf')
+    if(a){
+      console.log(a)  
+    }
+    
+    let validity = true
+    Object.keys(this.LegsForm.controls).forEach(field => {
+      const control = this.LegsForm.get(field)
+      if(field != 'delta') validity = validity && control.valid 
+    })  
+
+    return validity
+  }
+
+
+
+  endDateValidator($event) {
+    this.LegsForm.get('endDate').setErrors({incorrect : false})
+    this.LegsForm.get('endDate').setErrors(null)
+    // console.log(this.LegsForm.get('endDate'))
   }
 
   maxLengthError($event) {
@@ -158,7 +189,7 @@ export class AppComponent {
   sampleButton() {
     this.LegsForm.get('delta').setValue('')
     // this.LegsForm.get('delta').markAsUntouched({onlySelf:true})
-    console.log(this.LegsForm.get('delta'))
+    // console.log(this.LegsForm.get('delta'))
   }
 
   sampleButton1() {
@@ -201,9 +232,9 @@ export class AppComponent {
       let endDate = moment.utc(this.LegsForm.get('endDate').value)
       let diff = endDate.diff(startDate,'year',true)
       if(diff == 4 || diff == 6) {
-        console.log(true)
+        //console.log(true)
       } else {
-        console.log(false)
+        //console.log(false)
       }
 
     // setTimeout(() => {
@@ -229,10 +260,11 @@ export class AppComponent {
   legsFormValidator(control : FormArray) {
     let values = control.value
     let count = 0
+    let a: String = 'abc'
     for(let val of values) {
       if(val.legs != "") count++
     }
-    console.log(values)
+    // console.log(values)
     if(count < 2) return {invalidLegLength : true}
     return null
   }
@@ -280,13 +312,20 @@ export class AppComponent {
   createRate(legNo, product) {
     return this._fb.group({
       legNo : [legNo],
-      ratePrice : [{value : product, disabled : true}]
+      ratePrice : [{value : product, disabled : true}],
+      samplePrice : ['']
     })  
   }
 
   addRate(legNo, product, boolean?): void {
     const Rate = <FormArray>this.RatesForm.controls['rates']
     Rate.push(this.createRate(legNo, product))
+  }
+
+  resetRate(i) {
+    const Legs = <FormArray>this.RatesForm.controls['rates']
+    const LegsForm = <FormGroup>Legs.controls[i]
+    LegsForm.reset()
   }
 
   removeRate(i) : void {
@@ -312,8 +351,8 @@ export class AppComponent {
       let b = <FormGroup>Rate.controls[i]
       b.controls['ratePrice'].enable()
     }
-    console.log(this.LegsForm.value)
-    console.log(this.RatesForm.value)
+    // console.log(this.LegsForm.value)
+    // console.log(this.RatesForm.value)
   }
 
   disable() {
@@ -329,12 +368,31 @@ export class AppComponent {
 
   onFormChange() : void {
     (this.LegsForm.get('legs') as FormArray).valueChanges.subscribe(val => {
-      console.log('a')
+      // console.log('a')
       this.generateTabs(val)
     })
+
+  }
+
+  toggle() {
+    if(this.disableToggle) {
+      this.LegsForm.get('legs').disable()
+      this.disableToggle = false
+    } else {
+      this.LegsForm.get('legs').enable()
+      let legs = this.LegsForm.get('legs').value
+      for(let i in legs) {
+        let obj = {value : legs[i].legs}
+
+        this.setBlock(obj,i)
+      }
+
+      this.disableToggle = true
+    }
   }
 
   generateTabs(formValue) {
+    
     for (let i in formValue) {
       let formVal = formValue[i]
       let index = this.tabs.findIndex(x => x.legNo == formVal.legNo)
@@ -342,9 +400,19 @@ export class AppComponent {
       if(index == -1) {
         this.checkToGenerateTabs(formVal) ? this.addTab(formVal) : false 
       } else {
-        this.checkFormChangeOnTabs(index, i) ?  true : this.checkToGenerateTabs(formVal) ? true : this.removeTab(index)
+        if(!this.checkFormChangeOnTabs(index, i)) {
+          this.removeTab(index)    
+          this.checkToGenerateTabs(formVal) ? this.addTab(formVal) : false 
+        }
+        // this.checkFormChangeOnTabs(index, i) ?  true : this.checkToGenerateTabs(formVal) ? this.resetRate(i) : this.removeTab(index)
       }
     }
+
+  }
+
+  replaceTabs() {
+    const Rate = <FormArray>this.RatesForm.controls['rates']
+
   }
 
   addTab(formVal) {
@@ -364,7 +432,7 @@ export class AppComponent {
   }
 
   checkFormChangeOnTabs(tabIndex, formValIndex) {
-    let stringTabs = JSON.stringify(this.tabs[tabIndex])
+    let stringTabs = this.tabs[tabIndex]
     let stringValue = this.LegsForm.value['legs'][formValIndex]
     return stringTabs == stringValue
   }
@@ -393,6 +461,8 @@ export class AppComponent {
       legGroup.controls['blocks'].disable()
     }
   }
+
+
   
 
   

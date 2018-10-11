@@ -1,6 +1,7 @@
-import { Directive, Input, HostListener, Output, EventEmitter } from '@angular/core';
+  import { Directive, Input, HostListener, Output, EventEmitter, ElementRef, SimpleChange } from '@angular/core';
 import * as moment from 'moment-mini-ts'
 import { NgControl } from '@angular/forms';
+import { NgOnChangesFeature } from '@angular/core/src/render3';
 
 @Directive({
   selector: '[dateFormat]'
@@ -8,6 +9,7 @@ import { NgControl } from '@angular/forms';
 export class DateFormatDirective {
 
   @Input('dateType') dateType : String
+  @Input('sampleInput') sampleInput : String
   @Output('dateSample') dateSample: EventEmitter<any> = new EventEmitter<any>();
 
   dateReplace = [
@@ -17,8 +19,16 @@ export class DateFormatDirective {
   ]
   format = "M/D/YYYY"
   
-  constructor(private ngControl : NgControl) { 
+  constructor(private ngControl : NgControl, private elementRef: ElementRef) { 
   }
+
+  @HostListener('change') ngOnChanges(changes) {
+    if(changes.sampleInput){
+      var date = new Date(changes.sampleInput.currentValue)
+      this.validation(date)
+    }
+  }
+
   //KeyDown Event
   @HostListener('keydown',['$event']) onkeydown(e : Event) {
     if(!this.checkKeyCode(e)) return false
@@ -46,7 +56,37 @@ export class DateFormatDirective {
       value = value.slice(0, -1) 
       this.ngControl.control.patchValue(new Date(value))
     }
+    this.validation(value)
+    
+    let a = '111 1'
+    let b = new RegExp(/^[a-zA-Z0-9 ]+$/g)
+
+    console.log(b.test(a))
+    // console.log(this.ngControl.name)
     this.dateSample.emit('true')
+  }
+
+  validation(value) {
+    var validDate = moment(value,'M/D/YYYY',true).isValid()
+    
+    if(!validDate) {
+      this.ngControl.control.setErrors({invalidDateFormat : true})
+    } else {
+      this.ngControl.control.setErrors(null)
+      
+      if(this.ngControl.name == 'endDate') {
+        let startDate = this.ngControl.control.parent.get('startDate').value
+        
+        if(startDate != '') {
+          if(new Date(value) < new Date(startDate)) {
+            this.ngControl.control.setErrors({invalidDate : true})
+          } else {
+            this.ngControl.control.setErrors(null)
+          }
+        }
+      }
+
+    }  
   }
   
   decideDate() {

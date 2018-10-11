@@ -188,9 +188,6 @@
   <button mat-button (click)="sampleButton1()">Add Leg</button>
   <mat-form-field>
     <input matInput formControlName="notional" placeholder="Notional" (maxLength)="maxLengthError($event)" disableControl (keyup)="debounceValue.next($event.target.value)">
-    
-    
-    
   </mat-form-field><div *ngIf="!maxlengthStringError">Max Length Error</div><br>
 
   <mat-form-field>
@@ -199,12 +196,16 @@
     <mat-datepicker #picker></mat-datepicker>
   </mat-form-field>
   <mat-form-field>
-    <input class="form-control" formControlName="endDate" matInput placeholder="Enter a end date" dateFormat (dateSample)="changeDate($event)" [dateType]="'endDate'" [matDatepicker]="picker1">
+    <input class="form-control" formControlName="endDate" matInput placeholder="Enter a end date" dateFormat [sampleInput]="dateChangeVar" (dateChange)="sampleDateFunction($event)" (dateInput)="endDateValidator($event)"  (dateSample)="changeDate($event)" [dateType]="'endDate'" [matDatepicker]="picker1">
     <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
     <mat-datepicker #picker1></mat-datepicker>
   </mat-form-field>
+  <div *ngIf="LegsForm.get('endDate').errors?.invalidDateFormat">Hello World</div>
+  <div *ngIf="LegsForm.get('endDate').errors?.invalidDate">Hello Nonsense</div>
   <input type="checkbox" formControlName="isChecked" (change)="checkboxChange($event)">
 </form>
+
+<button  mat-button (click)="toggle()">Toggle</button>
 
 <div *ngIf="LegsForm.errors?.invalidLegLength">
   Oops, only urls served over https and only from the .io top-level domain are accepted.
@@ -230,6 +231,8 @@
     </mat-tab>
   </mat-tab-group>
 </form>
+
+<button  mat-button (click)="pseudoSubmit()">Pseudo Submit</button>
 
 <!-- Give value to appColor
   Enter the converter name in String in converterName
