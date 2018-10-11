@@ -23,10 +23,15 @@ export class DateFormatDirective {
   }
 
   @HostListener('change') ngOnChanges(changes) {
-    if(changes.sampleInput){
-      var date = new Date(changes.sampleInput.currentValue)
-      this.validation(date)
+    if(changes) {
+      if(changes.sampleInput){
+        if(changes.sampleInput.currentValue != null) {
+          var date = new Date(changes.sampleInput.currentValue)
+          this.validation(date)
+        }
+      }
     }
+    
   }
 
   //KeyDown Event
