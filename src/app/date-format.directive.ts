@@ -26,7 +26,8 @@ export class DateFormatDirective {
     if(changes) {
       if(changes.sampleInput){
         if(changes.sampleInput.currentValue != null) {
-          var date = new Date(changes.sampleInput.currentValue)
+          //var date = new Date(changes.sampleInput.currentValue)
+          var date = changes.sampleInput.currentValue
           this.validation(date)
         }
       }
@@ -63,10 +64,10 @@ export class DateFormatDirective {
     }
     this.validation(value)
     
-    let a = '111 1'
-    let b = new RegExp(/^[a-zA-Z0-9 ]+$/g)
+    // let a = '111 1'
+    // let b = new RegExp(/^[a-zA-Z0-9 ]+$/g)
 
-    console.log(b.test(a))
+    // console.log(b.test(a))
     // console.log(this.ngControl.name)
     this.dateSample.emit('true')
   }

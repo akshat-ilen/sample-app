@@ -156,7 +156,8 @@ export class AppComponent {
   }
 
   sampleDateFunction($event) {
-    this.dateChangeVar = $event.value
+    console.log($event)
+    this.dateChangeVar = $event.targetElement.value
   }
 
   pseudoSubmit() {

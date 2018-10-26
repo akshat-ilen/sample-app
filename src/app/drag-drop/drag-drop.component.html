@@ -1,0 +1,9 @@
+<app-ngx-sortable [items]="items" [name]="'List'" (listSorted)="listOrderChanged($event)">
+  <ng-template let-item let-i>
+      <div class="sortable-list-item">
+          <input type="checkbox" name="abc" [checked]="item.checked" (change)="checkboxChange(getIndex(item.name))">
+          {{getIndex(item.name)}}
+          {{item.name}}
+      </div>
+  </ng-template>
+</app-ngx-sortable>

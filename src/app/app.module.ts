@@ -34,6 +34,9 @@ import { DecisionTreeComponent } from './decision-tree/decision-tree.component';
 import { TableComponent } from './table/table.component';
 import { StaticTableComponent } from './static-table/static-table.component';
 import { StaticTable2Component } from './static-table2/static-table2.component';
+import { DragDropComponent } from './drag-drop/drag-drop.component';
+import { NgxSortableModule } from 'ngx-sortable';
+import { NgxSortableComponent } from './ngx-sortable/ngx-sortable.component';
 
 export function scrollFactory(overlay: Overlay): () => BlockScrollStrategy {
   return () => overlay.scrollStrategies.block();
@@ -55,7 +58,9 @@ export function scrollFactory(overlay: Overlay): () => BlockScrollStrategy {
     DecisionTreeComponent,
     TableComponent,
     StaticTableComponent,
-    StaticTable2Component
+    StaticTable2Component,
+    DragDropComponent,
+    NgxSortableComponent
   ],
   imports: [
     BrowserModule,
@@ -72,7 +77,8 @@ export function scrollFactory(overlay: Overlay): () => BlockScrollStrategy {
     MatTabsModule,
     MatAutocompleteModule,
     MatIconModule,
-    MatRadioModule
+    MatRadioModule,
+    NgxSortableModule
   ],
   providers: [SampleService,{ provide: MAT_SELECT_SCROLL_STRATEGY, useFactory: scrollFactory, deps: [Overlay] } ],
   bootstrap: [AppComponent]
