@@ -1,9 +1,20 @@
-<app-ngx-sortable [items]="items" [name]="'List'" (listSorted)="listOrderChanged($event)">
+<app-ngx-sortable [items]="tab" [name]="'List'" (listSorted)="listOrderChanged($event, 'tab')">
   <ng-template let-item let-i>
       <div class="sortable-list-item">
-          <input type="checkbox" name="abc" [checked]="item.checked" (change)="checkboxChange(getIndex(item.name))">
+          <input type="checkbox" name="abc" [checked]="item.checked" (change)="checkboxChange(getIndex(item.name, 'tab'), 'tab')">
           {{getIndex(item.name)}}
           {{item.name}}
       </div>
   </ng-template>
 </app-ngx-sortable>
+
+
+<app-ngx-sortable [items]="grid" [name]="'List'" (listSorted)="listOrderChanged($event, 'grid')">
+    <ng-template let-item let-i>
+        <div class="sortable-list-item">
+            <input type="checkbox" name="abc" [checked]="item.checked" (change)="checkboxChange(getIndex(item.name, 'grid'), 'grid')">
+            {{getIndex(item.name)}}
+            {{item.name}}
+        </div>
+    </ng-template>
+  </app-ngx-sortable>

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, SimpleChanges, OnChanges } from '@angular/core';
 
 @Component({
   selector: 'app-drag-drop',
@@ -10,6 +10,7 @@ export class DragDropComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    
   }
 
   listStyle = {
@@ -18,22 +19,35 @@ export class DragDropComponent implements OnInit {
     dropZoneHeight: '50px' // height of the dropzone indicator defaults to 50
     }
 
-  items = [
-    {checked : false, name : 'Albert Einstein'},
-    {checked : true, name : 'Madame Curie'},
-    {checked : true,name : 'Elon Musk'},
+  tab = [
+    {displayOrder : 0, checked : false, name : 'Albert Einstein'},
+    {displayOrder : 1, checked : true, name : 'Madame Curie'},
+    {displayOrder : 2, checked : true,name : 'Elon Musk'},
   ]
 
-  getIndex(name) {
-    return this.items.findIndex(x => x.name === name)
+  grid = [
+    {displayOrder : 0, checked : false, name : 'Albert Einstein'},
+    {displayOrder : 1, checked : true, name : 'Madame Curie'},
+    {displayOrder : 2, checked : true,name : 'Elon Musk'},
+  ]
+
+  getIndex(name, arrayName) {
+    let array: Array<any> = (arrayName == 'tab') ? this.tab : this.grid
+    return array.findIndex(x => x.name === name)
   }
 
-  checkboxChange(index) {
-    this.items[index]['checked'] = !this.items[index]['checked']
+  checkboxChange(index, arrayName) {
+    let array: Array<any> = (arrayName == 'tab') ? this.tab : this.grid
+    array[index]['checked'] = !array[index]['checked']
   }
 
-  listOrderChanged($event) {
+  listOrderChanged($event, arrayName) {
+    let array: Array<any> = (arrayName == 'tab') ? this.tab : this.grid
+    array.forEach((element,index)=> {
+      element.displayOrder = index
+    })
     console.log($event)
+
   }
 
 }
