@@ -50,4 +50,19 @@ export class DragDropComponent implements OnInit {
 
   }
 
+  clickEvent($event,index) {
+    const selectedItems = this.tab.filter(items => items.checked == true)
+    if(selectedItems.length <= 1) {
+      if($event.target.checked == false) {
+        $event.preventDefault()
+      } else {
+        this.tab[index]['checked'] = !this.tab[index]['checked']
+      }
+    } else {
+      this.tab[index]['checked'] = !this.tab[index]['checked']
+    }
+    console.log(this.tab)
+    
+  }
+
 }

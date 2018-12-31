@@ -20,6 +20,7 @@ import { Subject } from 'rxjs/Subject';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
 import 'rxjs/add/operator/switchMap';
+import { ActivatedRoute } from '@angular/router';
 
 export function scrollFactory(overlay: Overlay): () => BlockScrollStrategy {
   return () => overlay.scrollStrategies.block();
@@ -58,6 +59,8 @@ var data = [
 ]
 })
 export class AppComponent {
+
+  routeSample = 'null'
   
 
   LegTypes = [
@@ -108,7 +111,8 @@ export class AppComponent {
   constructor(private _fb : FormBuilder,
     private matIconRegistry: MatIconRegistry,
     private domSanitizer: DomSanitizer,
-    private localService: SampleService) {
+    private localService: SampleService,
+    private activatedRoute: ActivatedRoute) {
       this.matIconRegistry.addSvgIcon(
         "checkbox",
         this.domSanitizer.bypassSecurityTrustResourceUrl("../assets/sample.svg")
@@ -124,6 +128,12 @@ export class AppComponent {
         .subscribe(x => {
           this.localService.getDisable().subscribe(x => console.log(x))
         })
+
+        this.activatedRoute
+        .queryParams
+        .subscribe(queryParams => {
+            console.log('Query Params:', queryParams);
+        });
 
       
       // this.debounceValue.debounceTime(200).distinctUntilChanged().switchMap(x => this.sampleDebounceFunction(x))

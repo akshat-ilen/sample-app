@@ -1,0 +1,18 @@
+<ag-grid-angular 
+    #agGrid
+    style="width: 1000px; height: 500px;" 
+    class="ag-theme-balham"
+    [enableSorting]="true"
+    [enableFilter]="true"
+    [rowData]="rowData | async" 
+    [columnDefs]="columnDefs"
+    [defaultColDef]="defaultColDef"
+    [suppressClickEdit]="true"
+    [frameworkComponents]="frameworkComponents"
+    (viewportChanged)="afterRendering($event)"
+    rowSelection="multiple"
+    >
+</ag-grid-angular>
+
+<button (click)="getSelectedRows()">Get Selected Rows</button>
+<button (click)="getAllRows()">Get All Rows</button>

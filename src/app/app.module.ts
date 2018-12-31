@@ -3,6 +3,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';  // <-- #1 import module
 import { HttpClientModule } from "@angular/common/http";
+import { Routes, RouterModule } from '@angular/router';
 
 import {MatDatepickerModule} from '@angular/material/datepicker';
 
@@ -37,10 +38,18 @@ import { StaticTable2Component } from './static-table2/static-table2.component';
 import { DragDropComponent } from './drag-drop/drag-drop.component';
 import { NgxSortableModule } from 'ngx-sortable';
 import { NgxSortableComponent } from './ngx-sortable/ngx-sortable.component';
+import { AgTableComponent } from './ag-table/ag-table.component';
+import { AgGridModule } from 'ag-grid-angular';
+import { ButtonRendererComponent } from './button-renderer/button-renderer.component';
 
 export function scrollFactory(overlay: Overlay): () => BlockScrollStrategy {
   return () => overlay.scrollStrategies.block();
 }
+
+const routes: Routes = [
+  {path: '', component: AppComponent},
+  {path: 'abc', component: AppComponent}
+];
 
 
 @NgModule({
@@ -60,7 +69,9 @@ export function scrollFactory(overlay: Overlay): () => BlockScrollStrategy {
     StaticTableComponent,
     StaticTable2Component,
     DragDropComponent,
-    NgxSortableComponent
+    NgxSortableComponent,
+    AgTableComponent,
+    ButtonRendererComponent
   ],
   imports: [
     BrowserModule,
@@ -78,7 +89,9 @@ export function scrollFactory(overlay: Overlay): () => BlockScrollStrategy {
     MatAutocompleteModule,
     MatIconModule,
     MatRadioModule,
-    NgxSortableModule
+    NgxSortableModule,
+    RouterModule.forRoot(routes),
+    AgGridModule.withComponents([ButtonRendererComponent])
   ],
   providers: [SampleService,{ provide: MAT_SELECT_SCROLL_STRATEGY, useFactory: scrollFactory, deps: [Overlay] } ],
   bootstrap: [AppComponent]
