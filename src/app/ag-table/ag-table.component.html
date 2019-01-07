@@ -1,18 +1,32 @@
+<div class="body">
+    <div class="parent">
+        Messages
+        <div class="child">
+            abcgfhdsjfgdshja<br>
+            abcgfhdsjfgdshjafhsdghriuetyjfdsajfhgdsalgjdflhdjska
+        </div>
+    </div>
+</div>
+
 <ag-grid-angular 
     #agGrid
     style="width: 1000px; height: 500px;" 
     class="ag-theme-balham"
     [enableSorting]="true"
     [enableFilter]="true"
-    [rowData]="rowData | async" 
+    [rowData]="rowData" 
     [columnDefs]="columnDefs"
     [defaultColDef]="defaultColDef"
     [suppressClickEdit]="true"
     [frameworkComponents]="frameworkComponents"
+    stopEditingWhenGridLosesFocus="true"
+    (cellValueChanged)="onCellValueChanged($event)"
     (viewportChanged)="afterRendering($event)"
     rowSelection="multiple"
     >
 </ag-grid-angular>
+
+<span style="white-space:pre;">{{sampleString}}</span>
 
 <button (click)="getSelectedRows()">Get Selected Rows</button>
 <button (click)="getAllRows()">Get All Rows</button>

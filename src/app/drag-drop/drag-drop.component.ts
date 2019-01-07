@@ -13,6 +13,12 @@ export class DragDropComponent implements OnInit {
     
   }
 
+  selectAllCheckbox = false
+
+  selectAllEvent($event) {
+    console.log($event)
+  }
+
   listStyle = {
     width:'300px', //width of the list defaults to 300,
     height: '250px', //height of the list defaults to 250,

@@ -1,0 +1,14 @@
+.body {
+    background-color: pink ;
+    width:100%;
+    font-size: 20px
+}
+.parent {
+    margin: auto;
+    width: max-content;
+    text-align: left;
+    background-color: pink ;
+}
+.child {
+    text-align: left    
+}

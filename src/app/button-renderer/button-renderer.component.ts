@@ -34,16 +34,17 @@ export class ButtonRendererComponent implements ICellRendererAngularComp {
   public save() {
     let node = this.api.getRowNode(this.params.rowIndex)
     node.setDataValue('model',node.data.model)
+    this.value = node.data.model
   }
 
   public cancel() {
-    this.api.stopEditing()
     let node = this.api.getRowNode(this.params.rowIndex)
     node.setDataValue('model',this.value)
+    this.api.stopEditing()
   }
 
   refresh(): boolean {
-    return false;
+    return true;
   }
 
 }

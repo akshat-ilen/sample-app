@@ -15,18 +15,25 @@ export class AgTableComponent implements OnInit {
   
   defaultColDef = {editable:true}
     columnDefs = [
-        {headerName: 'Make', field: 'make', checkboxSelection: true },
+        {
+          headerName: 'Make', 
+          field: 'make', 
+          checkboxSelection: true },
         {
           headerName: 'Model', 
           field: 'model',
           cellEditor: "agSelectCellEditor",
           cellEditorParams: {
-          cellHeight: 50,
-          values: ["Celica", "Mondeo", "Boxter"],
-        }
+            cellHeight: 50,
+            values: ["Celica", "Mondeo", "Boxter"]
+          }
         },
-        {headerName: 'Price', field: 'price', cellStyle: this.compareValues,
-          valueFormatter: this.dateFormatter},
+        {
+          headerName: 'Price', 
+          field: 'price', 
+          cellStyle: this.compareValues,
+          valueFormatter: this.dateFormatter
+        },
         {
             headerName: "Actions",
             field: "action",
@@ -40,9 +47,18 @@ export class AgTableComponent implements OnInit {
       buttonRenderer: ButtonRendererComponent
     };
 
+    selectData = [
+      {value : 'cel', name : 'Celica'},
+      {value : 'mon', name : 'Mondeo'},
+      {value : 'box', name : 'Boxter'}
+    ]
+
+
     dateFormatter(data) {
       return data.value*10  
     }
+
+    sampleString = "abc\nabc"
 
 
     rowData : any
@@ -50,8 +66,23 @@ export class AgTableComponent implements OnInit {
   constructor(private http: HttpClient) { }
 
   ngOnInit() {
-    this.rowData = this.http.get('https://api.myjson.com/bins/15psn9')
-    
+    this.http.get('https://api.myjson.com/bins/15psn9').subscribe((abc:Array<any>) => {
+      abc.map(a => {
+        let newValue = this.selectData.find(b => b.name == a.model)
+        if(newValue)
+          a.abc = newValue.value
+      })
+      this.rowData = abc
+    })
+  }
+
+  onCellValueChanged(params){
+    let node = this.agGrid.api.getRowNode(params.rowIndex)
+    let newValue = this.selectData.find(a => a.name == params.newValue)
+    console.log(newValue)
+    if(newValue) {
+      node.data.abc = newValue.value
+    }
   }
 
   compareValues(params) {

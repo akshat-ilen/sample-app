@@ -1,5 +1,6 @@
 <div class="sortable-container" [style.width]='listStyle.width'>
   <div class="sortable-header">
+    <input type="checkbox" (click)="checkboxCheck($event)" [checked]="checkBoxVar">
     <label class="sortable-name">{{name}}</label>
     <div class="sortable-buttons">
       <button (click)="moveUp()" [disabled]="!selectedItem" title="Move Up">&#8679;</button>

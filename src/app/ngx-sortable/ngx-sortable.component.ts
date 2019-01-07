@@ -16,12 +16,18 @@ export class NgxSortableComponent {
     width: '300px',
     dropZoneHeight: '50px'
   };
+  @Input() checkBoxVar: boolean = false
   @Output() public listSorted: EventEmitter<any> = new EventEmitter();
+  @Output() public checkEvent: EventEmitter<any> = new EventEmitter();
   @ContentChild(TemplateRef) public itemTemplate: TemplateRef<ElementRef>;
   public selectedItem: any;
   public draggedIndex: number = -1;
   public onDragOverIndex: number = -1;
   constructor() {
+  }
+
+  checkboxCheck($event) {
+    this.checkEvent.emit($event)
   }
 
   public selectItem(item: any) {
