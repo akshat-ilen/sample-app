@@ -163,6 +163,7 @@ export class AppComponent {
 
     this.onFormChange()
     // console.log(this.generateObject(data, object))
+
   }
 
   sampleDateFunction($event) {

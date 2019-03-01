@@ -41,6 +41,7 @@ import { NgxSortableComponent } from './ngx-sortable/ngx-sortable.component';
 import { AgTableComponent } from './ag-table/ag-table.component';
 import { AgGridModule } from 'ag-grid-angular';
 import { ButtonRendererComponent } from './button-renderer/button-renderer.component';
+import { ExcelDataComponent } from './excel-data/excel-data.component';
 
 export function scrollFactory(overlay: Overlay): () => BlockScrollStrategy {
   return () => overlay.scrollStrategies.block();
@@ -71,7 +72,8 @@ const routes: Routes = [
     DragDropComponent,
     NgxSortableComponent,
     AgTableComponent,
-    ButtonRendererComponent
+    ButtonRendererComponent,
+    ExcelDataComponent
   ],
   imports: [
     BrowserModule,

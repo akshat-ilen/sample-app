@@ -6,12 +6,14 @@
     Edit
   </button>
   <button 
+    [disabled]="buttonDisable"
     style="height: 20px" 
     (click)="cancel()" 
     class="btn btn-info">
     Cancel
   </button>
   <button 
+    [disabled]="buttonDisable"
     style="height: 20px" 
     (click)="save()" 
     class="btn btn-info">

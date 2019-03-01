@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {ICellRendererAngularComp} from "ag-grid-angular";
-import { GridApi } from 'ag-grid-community';
+import {ICellRendererAngularComp, AgGridNg2} from "ag-grid-angular";
+import { GridApi, ComponentResolver } from 'ag-grid-community';
 
 
 @Component({
@@ -14,6 +14,8 @@ export class ButtonRendererComponent implements ICellRendererAngularComp {
   public api: GridApi
   public value : any
 
+  buttonDisable = true
+
   constructor() { }
 
   agInit(params: any): void {
@@ -24,9 +26,8 @@ export class ButtonRendererComponent implements ICellRendererAngularComp {
   public edit() {
     this.api.startEditingCell({
         rowIndex : this.params.rowIndex,
-        colKey: 'model' 
+        colKey: 'model'
     })
-
     let node = this.api.getRowNode(this.params.rowIndex)
     this.value = node.data.model
   }

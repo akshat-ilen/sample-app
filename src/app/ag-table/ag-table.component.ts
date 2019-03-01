@@ -79,7 +79,6 @@ export class AgTableComponent implements OnInit {
   onCellValueChanged(params){
     let node = this.agGrid.api.getRowNode(params.rowIndex)
     let newValue = this.selectData.find(a => a.name == params.newValue)
-    console.log(newValue)
     if(newValue) {
       node.data.abc = newValue.value
     }
