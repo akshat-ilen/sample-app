@@ -1,7 +1,8 @@
-  import { Directive, Input, HostListener, Output, EventEmitter, ElementRef, SimpleChange } from '@angular/core';
+  import { Directive, Input, HostListener, Output, EventEmitter, ElementRef, SimpleChange, ChangeDetectorRef } from '@angular/core';
 import * as moment from 'moment-mini-ts'
 import { NgControl } from '@angular/forms';
 import { NgOnChangesFeature } from '@angular/core/src/render3';
+
 
 @Directive({
   selector: '[dateFormat]'
@@ -19,7 +20,8 @@ export class DateFormatDirective {
   ]
   format = "M/D/YYYY"
   
-  constructor(private ngControl : NgControl, private elementRef: ElementRef) { 
+  constructor(private ngControl : NgControl, private elementRef: ElementRef, 
+              private cd: ChangeDetectorRef) { 
   }
 
   @HostListener('change') ngOnChanges(changes) {
@@ -29,6 +31,7 @@ export class DateFormatDirective {
           //var date = new Date(changes.sampleInput.currentValue)
           var date = changes.sampleInput.currentValue
           this.validation(date)
+          this.cd.detectChanges()
         }
       }
     }
@@ -63,6 +66,7 @@ export class DateFormatDirective {
       this.ngControl.control.patchValue(new Date(value))
     }
     this.validation(value)
+    this.cd.detectChanges()
     
     // let a = '111 1'
     // let b = new RegExp(/^[a-zA-Z0-9 ]+$/g)

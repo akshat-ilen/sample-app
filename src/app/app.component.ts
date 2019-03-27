@@ -167,7 +167,7 @@ export class AppComponent {
   }
 
   sampleDateFunction($event) {
-    console.log($event)
+  
     this.dateChangeVar = $event.targetElement.value
   }
 

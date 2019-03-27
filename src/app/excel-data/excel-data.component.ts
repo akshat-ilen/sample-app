@@ -25,7 +25,7 @@ export class ExcelDataComponent implements OnInit {
     console.log(this.data)
     const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(this.data);
     const worksheet1: XLSX.WorkSheet = XLSX.utils.json_to_sheet(this.data);
-    console.log('worksheet',worksheet);
+    console.log('worksheet',worksheet); 
     const workbook: XLSX.WorkBook = { Sheets: { 'data': worksheet,'data1' :worksheet1 }, SheetNames: ['data','data1'] };
     const excelBuffer: any = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
     // const excelBuffer: any = XLSX.write(workbook, { bookType: 'xlsx', type: 'buffer' });
