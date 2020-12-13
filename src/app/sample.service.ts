@@ -56,3 +56,49 @@ export class SampleService {
   
 
 }
+
+import { JsonPipe } from '@angular/common';
+import { Injectable } from '@angular/core';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class LocalStorageService {
+
+  private data$ = new BehaviorSubject<any> ({});
+
+  constructor() {
+    this.setData$(JSON.parse(JSON.stringify(localStorage)))
+   }
+
+  private setData$(data) {
+    this.data$.next(data)
+  }
+
+  get(key): Observable<any> {
+    return this.data$.asObservable().pipe(map(data => JSON.parse(data[key])))
+  }
+
+  set(key, value): void {
+    value = JSON.stringify(value)
+    const oldData = this.data$.value
+    oldData[key] = value
+    
+    localStorage.setItem(key, value)
+
+    this.setData$(oldData)
+  }
+
+  clear() {
+    let lang = this.getValue('lang')
+    localStorage.clear()
+    this.setData$({})
+    this.set('lang',lang)
+  }
+
+  getValue(key) {
+    return JSON.parse(localStorage.getItem(key))
+  }
+}
